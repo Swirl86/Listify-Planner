@@ -1,4 +1,4 @@
-package com.example.listifyplanner
+package com.swirl.listifyplanner
 
 import org.junit.Test
 

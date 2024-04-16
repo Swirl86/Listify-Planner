@@ -1,4 +1,4 @@
-package com.example.listifyplanner.ui.theme
+package com.swirl.listifyplanner.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
