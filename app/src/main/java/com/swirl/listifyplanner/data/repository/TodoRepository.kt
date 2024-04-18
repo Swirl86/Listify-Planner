@@ -9,8 +9,8 @@ class TodoRepository(
 ) {
     suspend fun insertTodo(todo: Todo) = todoDao.insertTodo(todo)
     suspend fun updateTodo(todo: Todo) = todoDao.updateTodo(todo)
-    suspend fun deleteTodo(todo: Todo) = todoDao.insertTodo(todo)
-    suspend fun deleteAllTodos(todo: Todo) = todoDao.deleteTodo(todo)
-    suspend fun getTodoById(id: Long): Todo = todoDao.getTodoById(id)
+    suspend fun deleteTodo(todo: Todo) = todoDao.deleteTodo(todo)
+    suspend fun deleteAllTodos() = todoDao.deleteAllTodos()
+    suspend fun getTodoById(id: Int): Todo = todoDao.getTodoById(id)
     fun getAllTodos(): Flow<List<Todo>> = todoDao.getAllTodos()
 }

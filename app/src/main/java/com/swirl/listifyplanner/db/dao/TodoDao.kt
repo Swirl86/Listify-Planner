@@ -9,7 +9,6 @@ interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTodo(todo: Todo)
 
-
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateTodo(todo: Todo)
 
@@ -20,7 +19,7 @@ interface TodoDao {
     suspend fun deleteAllTodos()
 
     @Query("SELECT * FROM todo WHERE id = :id")
-    suspend fun getTodoById(id: Long): Todo
+    suspend fun getTodoById(id: Int): Todo
 
     @Query("SELECT * FROM todo")
     fun getAllTodos(): Flow<List<Todo>>

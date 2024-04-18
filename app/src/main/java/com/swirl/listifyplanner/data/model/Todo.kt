@@ -2,13 +2,13 @@ package com.swirl.listifyplanner.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.Date
 
-@Entity
-data class Todo (
+@Entity(tableName = "todo")
+data class Todo(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
-    val todo: String,
-    val timeStamp: String,
-    val isCompleted: Boolean = false,
+    val id: Int = 0,
+    val task: String,
+    val timeStamp: Date,
     val isImportant: Boolean = false
 )

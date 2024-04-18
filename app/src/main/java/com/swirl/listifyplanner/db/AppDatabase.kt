@@ -13,7 +13,7 @@ import com.swirl.listifyplanner.db.dao.TodoDao
     version = 1,
     exportSchema = false
 )
-@TypeConverters(Todo::class)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun todoDao(): TodoDao
