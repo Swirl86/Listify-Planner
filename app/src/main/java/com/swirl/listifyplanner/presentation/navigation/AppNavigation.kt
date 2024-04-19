@@ -23,7 +23,7 @@ import androidx.navigation.navArgument
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.home_screen.HomeScreen
 import com.swirl.listifyplanner.presentation.update_screen.UpdateScreen
-import com.swirl.listifyplanner.presentation.voice_to_text_screen.VoiceToTextScreen
+import com.swirl.listifyplanner.presentation.speech_to_text_screen.SpeechToTextScreen
 
 @Composable
 fun AppNavigation(mainViewModel: MainViewModel) {
@@ -101,12 +101,12 @@ fun AppNavigation(mainViewModel: MainViewModel) {
                     )
                 }
             }
-            composable(route = Screens.VoiceToTextScreen.name) {
-                VoiceToTextScreen()
+            composable(route = Screens.SpeechToTextScreen.name) {
+                SpeechToTextScreen()
             }
             composable(route = Screens.CalenderScreen.name) {
                 // TODO implement calender
-                VoiceToTextScreen()
+                SpeechToTextScreen()
             }
         }
     }

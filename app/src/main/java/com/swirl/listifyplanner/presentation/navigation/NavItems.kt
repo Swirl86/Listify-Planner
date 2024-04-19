@@ -21,7 +21,7 @@ val listOfBottomNavItems = listOf(
     NavItem(
         label = "Talk",
         icon = Icons.Default.Mic,
-        route = Screens.VoiceToTextScreen.name
+        route = Screens.SpeechToTextScreen.name
     ),
     NavItem(
         label = "Calender",

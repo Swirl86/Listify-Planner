@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -30,7 +29,6 @@ import com.swirl.listifyplanner.presentation.home_screen.components.alert_dialog
 import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
 import com.swirl.listifyplanner.presentation.home_screen.components.TodoCard
-import com.swirl.listifyplanner.presentation.home_screen.components.alert_dialogs.AlertDialog_General
 
 @Composable
 fun HomeScreen(
