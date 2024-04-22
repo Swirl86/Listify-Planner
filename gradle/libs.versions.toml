@@ -3,6 +3,7 @@ activityCompose = "1.7.0"
 agp = "8.3.2"
 composeBom = "2023.08.00"
 converterGson = "2.9.0"
+desugar_jdk_libs = "2.0.4"
 gson = "2.10.1"
 hiltAndroid = "2.48.1"
 hiltCompiler = "1.2.0"
@@ -36,6 +37,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomKtx" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }

@@ -31,10 +31,6 @@ fun SpeechToTextScreen() {
     val speechToTextConverter = remember(context) {
         SpeechToTextConverter(context = context) { transcribedText ->
             result = transcribedText
-        }.apply {
-            setOnSpeechStart {
-                result = ""
-            }
         }
     }
 
@@ -55,6 +51,7 @@ fun SpeechToTextScreen() {
                 if (isListening) {
                     speechToTextConverter.stopListening()
                 } else {
+                    result = ""
                     if (ContextCompat.checkSelfPermission(
                             context,
                             Manifest.permission.RECORD_AUDIO

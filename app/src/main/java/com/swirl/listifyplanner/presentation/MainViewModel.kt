@@ -7,18 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.data.repository.TodoRepository
+import com.swirl.listifyplanner.utils.extenstions.capitalizeWord
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import java.util.Date
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val todoRepository: TodoRepository
 ) : ViewModel() {
-    var todo by mutableStateOf(Todo(0, "", Date()))
+    var todo by mutableStateOf(Todo(0, "", LocalDateTime.now()))
         private set
 
     val getAllTodos: Flow<List<Todo>> = todoRepository.getAllTodos()
@@ -27,13 +28,23 @@ class MainViewModel @Inject constructor(
 
     fun insertTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
-            todoRepository.insertTodo(todo)
+            todoRepository.insertTodo(
+                todo.copy(
+                    task = todo.task.capitalizeWord(),
+                    timeStamp = LocalDateTime.now()
+                )
+            )
         }
     }
 
     fun updateTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
-            todoRepository.updateTodo(todo.copy(timeStamp = Date()))
+            todoRepository.updateTodo(
+                todo.copy(
+                    task = todo.task.capitalizeWord(),
+                    timeStamp = LocalDateTime.now()
+                )
+            )
         }
     }
 

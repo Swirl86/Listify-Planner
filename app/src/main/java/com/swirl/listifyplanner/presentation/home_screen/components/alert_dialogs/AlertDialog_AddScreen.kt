@@ -40,7 +40,7 @@ import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.taskTextStyle
 import com.swirl.listifyplanner.presentation.common.toastMsg
 import kotlinx.coroutines.job
-import java.util.Date
+import java.time.LocalDateTime
 
 @Composable
 fun AlertDialog_AddScreen(
@@ -51,7 +51,7 @@ fun AlertDialog_AddScreen(
     var text by remember {  mutableStateOf("") }
     var isImportant by remember { mutableStateOf(false) }
 
-    val todo = Todo(0, text, Date(), isImportant)
+    val todo = Todo(0, text, LocalDateTime.now(), isImportant)
 
     val focusRequest = FocusRequester()
     val context = LocalContext.current
@@ -89,7 +89,7 @@ fun AlertDialog_AddScreen(
                         keyboardActions = KeyboardActions(
                             onDone = {
                                 if (text.isNotBlank()) {
-                                    mainViewModel.insertTodo(todo = todo)
+                                    mainViewModel.insertTodo(todo)
                                     text = ""
                                     isImportant = false
                                     onClose()
@@ -137,7 +137,7 @@ fun AlertDialog_AddScreen(
             confirmButton = {
                 Button(onClick = {
                     if (text.isNotBlank()) {
-                        mainViewModel.insertTodo(todo = todo.copy(timeStamp = Date()))
+                        mainViewModel.insertTodo(todo)
                         text = ""
                         isImportant = false
                         onClose()

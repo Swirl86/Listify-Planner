@@ -17,13 +17,9 @@ class SpeechToTextConverter(
     private val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
 
-    private var onSpeechStart: (() -> Unit)? = null
-
     private val recognitionListener = object : RecognitionListener {
         override fun onReadyForSpeech(params: Bundle?) = Unit
-        override fun onBeginningOfSpeech() {
-            onSpeechStart?.invoke()
-        }
+        override fun onBeginningOfSpeech() = Unit
         override fun onRmsChanged(rmsdB: Float) = Unit
         override fun onBufferReceived(buffer: ByteArray?) = Unit
         override fun onEndOfSpeech() = Unit
@@ -48,10 +44,6 @@ class SpeechToTextConverter(
 
     init {
         setRecognitionListener(recognitionListener)
-    }
-
-    fun setOnSpeechStart(action: () -> Unit) {
-        onSpeechStart = action // Clear result, get an empty start
     }
 
     override fun setRecognitionListener(listener: RecognitionListener?) {

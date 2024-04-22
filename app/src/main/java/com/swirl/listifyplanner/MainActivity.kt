@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.swirl.listifyplanner.db.AppDatabase
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.navigation.AppNavigation
 import com.swirl.listifyplanner.ui.theme.ListifyPlannerTheme

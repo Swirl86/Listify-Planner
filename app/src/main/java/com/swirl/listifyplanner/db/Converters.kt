@@ -1,16 +1,18 @@
 package com.swirl.listifyplanner.db
 
 import androidx.room.TypeConverter
-import java.util.Date
+import java.time.LocalDateTime
 
 class Converters {
     @TypeConverter
-    fun fromDate(date: Date): Long {
-        return date.time
+    fun toDate(dateString: String?): LocalDateTime {
+        return dateString.let {
+            runCatching { LocalDateTime.parse(dateString) }.getOrNull()
+        } ?: LocalDateTime.now()
     }
 
     @TypeConverter
-    fun toDate(timestamp: Long): Date {
-        return Date(timestamp)
+    fun toDateString(date: LocalDateTime?): String {
+        return date?.toString() ?: LocalDateTime.now().toString()
     }
 }

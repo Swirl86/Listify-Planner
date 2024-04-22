@@ -1,5 +1,10 @@
 package com.swirl.listifyplanner.presentation.home_screen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,35 +61,40 @@ fun HomeScreen(
             onClose = { openDialog = false },
             mainViewModel = mainViewModel
         )
-
         if (todos.isEmpty()) {
             EmptyToDoScreen(paddingValues = paddingValues)
         } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                contentPadding = PaddingValues(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+            AnimatedVisibility(
+                visible = true,
+                enter = scaleIn() + fadeIn(),
+                exit = scaleOut() + fadeOut()
             ) {
-                items(
-                    items = todos,
-                    key = {it.id}
-                ) { todo ->
-                    TodoCard(
-                        todo = todo,
-                        onDelete = {
-                            mainViewModel.deleteTodo(todo)
-                            snackbar(
-                                scope,
-                                snackbarHostState,
-                                message = "Deleted task: \"${todo.task}\"",
-                                actionLabel = "UNDO DELETE",
-                                onAction = {mainViewModel.undoDeletedTodo()}
-                            )
-                        },
-                        onUpdate = onUpdate
-                    )
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                    contentPadding = PaddingValues(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(
+                        items = todos,
+                        key = {it.id}
+                    ) { todo ->
+                        TodoCard(
+                            todo = todo,
+                            onDelete = {
+                                mainViewModel.deleteTodo(todo)
+                                snackbar(
+                                    scope,
+                                    snackbarHostState,
+                                    message = "Deleted task: \"${todo.task}\"",
+                                    actionLabel = "UNDO DELETE",
+                                    onAction = {mainViewModel.undoDeletedTodo()}
+                                )
+                            },
+                            onUpdate = onUpdate
+                        )
+                    }
                 }
             }
         }
