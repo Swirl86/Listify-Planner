@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Listify Planner</string>
+
+    <!-- Home_Screen -->
+    <string name="home_deleted_task">Deleted task: %s</string>
+    <string name="home_undo_delete">UNDO DELETE</string>
+
+    <!-- Todo_screen  -->
+    <string name="add_todo">Todo</string>
+    <string name="add_todo_title">Add Todo</string>
+    <string name="add_todo_sub_title">Todo information</string>
+    <string name="add_todo_empty">Empty Todo!</string>
+
+    <string name="update_todo">Update Todo</string>
+    <string name="update_todo_task">Task</string>
+    <string name="update_todo_save">Save Task</string>
+
+    <string name="todo_important">Important</string>
+
+    <!-- Speech_To_Text_screen  -->
+    <string name="speech_start">Start Recording</string>
+    <string name="speech_stop">Stop Recording</string>
+    <string name="speech_result_shown">Result will be shown here</string>
+
+
+    <!-- General -->
+    <string name="button_save">Save</string>
+    <string name="button_close">Close</string>
+
+    <!-- Error -->
+    <string name="error_unknown">Something went wrong</string>
+
 </resources>

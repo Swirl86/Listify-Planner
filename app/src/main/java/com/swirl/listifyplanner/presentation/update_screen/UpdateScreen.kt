@@ -26,13 +26,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.taskTextStyle
 import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
+import com.swirl.listifyplanner.utils.UiText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,6 +44,7 @@ fun UpdateScreen(
     mainViewModel: MainViewModel,
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
     val task = mainViewModel.todo.task
     val isImportant = mainViewModel.todo.isImportant
 
@@ -54,7 +58,10 @@ fun UpdateScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Update Todo", style = topAppBarTextStyle)
+                    Text(
+                        text = UiText.StringResource(R.string.update_todo).asString(context),
+                        style = topAppBarTextStyle
+                    )
                 },
                 navigationIcon = {
                     IconButton(onClick = { onBack() }) {
@@ -86,7 +93,12 @@ fun UpdateScreen(
                     mainViewModel.updateTask(newValue)
                 },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = "Task", fontFamily = FontFamily.Monospace) },
+                label = {
+                    Text(
+                        text = UiText.StringResource(R.string.update_todo_task).asString(context),
+                        fontFamily = FontFamily.Monospace
+                    )
+                },
                 shape = RectangleShape,
                 keyboardOptions = KeyboardOptions(
                     KeyboardCapitalization.Sentences
@@ -100,7 +112,7 @@ fun UpdateScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Important",
+                    text = UiText.StringResource(R.string.todo_important).asString(context),
                     fontFamily = FontFamily.Monospace,
                     fontSize = 18.sp
                 )
@@ -115,7 +127,7 @@ fun UpdateScreen(
                 onBack()
             }) {
                 Text(
-                    text = "Save Task",
+                    text = UiText.StringResource(R.string.update_todo_save).asString(context),
                     fontSize = 16.sp
                 )
             }

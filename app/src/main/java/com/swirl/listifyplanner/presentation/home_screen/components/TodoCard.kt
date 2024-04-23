@@ -1,13 +1,15 @@
 package com.swirl.listifyplanner.presentation.home_screen.components
 
-import android.util.Log
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Delete
@@ -19,9 +21,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,22 +30,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.presentation.common.taskTextStyle
+import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
+import com.swirl.listifyplanner.ui.theme.TaskLightYellowBg
 import com.swirl.listifyplanner.utils.extenstions.getOutPutString
 
 @Composable
 fun TodoCard(
     todo: Todo,
     onDelete: () -> Unit,
-    onUpdate: (id: Int) -> Unit
+    onUpdate: (id: Int) -> Unit,
+    onClick: () -> Unit
 ) {
-    var done by rememberSaveable { mutableStateOf(false) }
+    val color by animateColorAsState(
+        targetValue = if (todo.isDone) TaskLightGreenBg
+        else TaskLightYellowBg, animationSpec = tween(500), label = ""
+    )
 
-    Log.i("TAG", todo.toString())
     Card(
         modifier = Modifier.fillMaxWidth()
+            .clickable {
+                onClick()
+            }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color)
                 .padding(6.dp)
         ) {
             Row(
@@ -55,27 +64,18 @@ fun TodoCard(
                     .padding(horizontal = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(
-                    onClick = {
-                        done = !done
-                    },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Check,
-                        tint = if (done) Color.Green else Color.Gray,
-                        contentDescription = null
-                    )
-                }
-                ClickableText(
+                Icon(
+                    modifier = Modifier.weight(1f),
+                    imageVector = Icons.Rounded.Check,
+                    tint = if (todo.isDone) Color.Green else Color.Gray,
+                    contentDescription = null
+                )
+                Text(
                     text = AnnotatedString(todo.task),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(8f),
-                    style = taskTextStyle(done),
-                    onClick = {
-                        done = !done
-                    },
+                    style = taskTextStyle(todo.isDone)
                 )
                 if (todo.isImportant) {
                     Icon(
@@ -83,11 +83,13 @@ fun TodoCard(
                         tint = Color.Cyan,
                         contentDescription = null,
                         modifier = Modifier.weight(1f)
+                            .padding(end = 4.dp)
                     )
                 }
                 IconButton(
                     onClick = { onDelete() },
                     modifier = Modifier.weight(1f)
+                        .padding(end = 4.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Delete,
@@ -98,6 +100,7 @@ fun TodoCard(
                 IconButton(
                     onClick = { onUpdate(todo.id) },
                     modifier = Modifier.weight(1f)
+                        .padding(end = 4.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Edit,
@@ -111,7 +114,10 @@ fun TodoCard(
                     .padding(horizontal = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Spacer(Modifier.weight(1f).fillMaxWidth())
+                Spacer(
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth())
                 Text(
                     text = todo.timeStamp.getOutPutString(),
                     modifier = Modifier.padding(4.dp),

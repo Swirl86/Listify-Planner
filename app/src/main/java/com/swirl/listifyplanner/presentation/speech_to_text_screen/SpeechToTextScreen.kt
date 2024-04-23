@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,11 +21,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.swirl.listifyplanner.R
+import com.swirl.listifyplanner.utils.UiText
 import com.swirl.listifyplanner.utils.speech.SpeechToTextConverter
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun SpeechToTextScreen() {
     val context = LocalContext.current
+    val recordAudioPermissionState = rememberPermissionState(Manifest.permission.RECORD_AUDIO)
     var result by remember { mutableStateOf("") }
     var isListening by remember { mutableStateOf(false) }
 
@@ -34,11 +42,17 @@ fun SpeechToTextScreen() {
         }
     }
 
-    val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+    val requestPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
         if (isGranted) {
-            isListening = true
             speechToTextConverter.startListening()
+            isListening = true
+        } else {
+            // Handle permission denial
         }
+    }
+
+    LaunchedEffect (!recordAudioPermissionState.status.isGranted) {
+        requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
 
     Column(
@@ -50,29 +64,30 @@ fun SpeechToTextScreen() {
             onClick = {
                 if (isListening) {
                     speechToTextConverter.stopListening()
+                    isListening = false
                 } else {
                     result = ""
-                    if (ContextCompat.checkSelfPermission(
-                            context,
-                            Manifest.permission.RECORD_AUDIO
-                        ) == PackageManager.PERMISSION_GRANTED
-                    ) {
+                    if (recordAudioPermissionState.status.isGranted) {
                         speechToTextConverter.startListening()
+                        isListening = true
                     } else {
-                        permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                        requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
                     }
                 }
-                isListening = !isListening
             }
         ) {
             Text(
-                text = if (isListening) "Stop Speech Recording" else "Start Speech Recording",
+                text = if (isListening) {
+                    UiText.StringResource(R.string.speech_stop).asString(context)
+                } else {
+                    UiText.StringResource(R.string.speech_start).asString(context)
+                },
                 color = if (isListening) Color.Red else Color.Green
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = result.ifEmpty { "Result will be shown here" },
+            text = result.ifEmpty { UiText.StringResource(R.string.speech_result_shown).asString(context) },
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(horizontal = 16.dp)

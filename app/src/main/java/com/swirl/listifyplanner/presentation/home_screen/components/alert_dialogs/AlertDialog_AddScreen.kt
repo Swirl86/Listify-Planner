@@ -16,8 +16,8 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,10 +35,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.taskTextStyle
 import com.swirl.listifyplanner.presentation.common.toastMsg
+import com.swirl.listifyplanner.utils.UiText
 import kotlinx.coroutines.job
 import java.time.LocalDateTime
 
@@ -59,7 +61,10 @@ fun AlertDialog_AddScreen(
     if (openDialog) {
         AlertDialog(
             title = {
-                Text(text = "Todo", fontFamily = FontFamily.Serif)
+                Text(
+                    text = UiText.StringResource(R.string.add_todo).asString(context),
+                    fontFamily = FontFamily.Serif
+                )
             },
             text = {
                 LaunchedEffect(key1 = true) {
@@ -71,12 +76,15 @@ fun AlertDialog_AddScreen(
                 Column(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    TextField(
+                    OutlinedTextField(
                         value = text,
+                        label = { Text(
+                            text = UiText.StringResource(R.string.add_todo_title).asString(context)
+                        ) },
                         onValueChange = { text = it },
                         placeholder = {
                             Text(
-                                text = "Add Todo",
+                                text = UiText.StringResource(R.string.add_todo_sub_title).asString(context),
                                 fontFamily = FontFamily.Monospace
                             )
                         },
@@ -96,7 +104,7 @@ fun AlertDialog_AddScreen(
                                 } else {
                                     toastMsg(
                                         context,
-                                        "Empty Todo!"
+                                        UiText.StringResource(R.string.add_todo_empty).asString(context)
                                     )
                                 }
                             }
@@ -117,7 +125,7 @@ fun AlertDialog_AddScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Important",
+                            text = UiText.StringResource(R.string.todo_important).asString(context),
                             fontFamily = FontFamily.Monospace,
                             fontSize = 18.sp
                         )
@@ -144,11 +152,11 @@ fun AlertDialog_AddScreen(
                     } else {
                         toastMsg(
                             context,
-                            "Empty Todo!"
+                            UiText.StringResource(R.string.add_todo_empty).asString(context)
                         )
                     }
                 }) {
-                    Text(text = "Save")
+                    Text(text = UiText.StringResource(R.string.button_save).asString(context))
                 }
             },
             dismissButton = {
@@ -157,7 +165,7 @@ fun AlertDialog_AddScreen(
                     text = ""
                     isImportant = false
                 }) {
-                    Text(text = "Close")
+                    Text(text = UiText.StringResource(R.string.button_close).asString(context))
                 }
             }
         )

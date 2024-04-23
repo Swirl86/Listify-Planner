@@ -26,20 +26,25 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.snackbar
 import com.swirl.listifyplanner.presentation.home_screen.components.alert_dialogs.AlertDialog_AddScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
 import com.swirl.listifyplanner.presentation.home_screen.components.TodoCard
+import com.swirl.listifyplanner.utils.UiText
 
 @Composable
 fun HomeScreen(
     mainViewModel: MainViewModel,
     onUpdate: (id: Int) -> Unit
 ) {
+    val context = LocalContext.current
+
     val todos by mainViewModel.getAllTodos.collectAsStateWithLifecycle(initialValue = emptyList())
     var openDialog by rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -77,7 +82,7 @@ fun HomeScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(
-                        items = todos,
+                        items = todos.sortedBy { it.timeStamp },
                         key = {it.id}
                     ) { todo ->
                         TodoCard(
@@ -87,12 +92,17 @@ fun HomeScreen(
                                 snackbar(
                                     scope,
                                     snackbarHostState,
-                                    message = "Deleted task: \"${todo.task}\"",
-                                    actionLabel = "UNDO DELETE",
+                                    message = UiText.StringResource(R.string.home_deleted_task, todo.task).asString(context),
+                                    actionLabel = UiText.StringResource(R.string.home_undo_delete).asString(context),
                                     onAction = {mainViewModel.undoDeletedTodo()}
                                 )
                             },
-                            onUpdate = onUpdate
+                            onUpdate = onUpdate,
+                            onClick = {
+                                mainViewModel.updateTodoIsDone(
+                                    todo.copy(isDone = !todo.isDone)
+                                )
+                            }
                         )
                     }
                 }

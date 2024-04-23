@@ -48,6 +48,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateTodoIsDone(todo: Todo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            todoRepository.updateTodo(todo)
+        }
+    }
+
     fun deleteTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
             deletedTodo = todo

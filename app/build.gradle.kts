@@ -81,6 +81,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // provides Android runtime permissions support
+    implementation(libs.accompanist.permissions)
+
     // Compose dependencies
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

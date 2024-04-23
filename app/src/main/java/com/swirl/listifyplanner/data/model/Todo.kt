@@ -10,5 +10,6 @@ data class Todo(
     val id: Int = 0,
     val task: String,
     val timeStamp: LocalDateTime,
-    val isImportant: Boolean = false
+    val isImportant: Boolean = false,
+    val isDone: Boolean = false
 )
