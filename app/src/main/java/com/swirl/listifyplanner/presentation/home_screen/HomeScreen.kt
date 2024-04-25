@@ -33,6 +33,7 @@ import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.snackbar
 import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialog_AddScreen
+import com.swirl.listifyplanner.presentation.common.SwipeToDeleteContainer
 import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
 import com.swirl.listifyplanner.presentation.home_screen.components.TodoCard
@@ -85,25 +86,30 @@ fun HomeScreen(
                         items = todos.sortedBy { it.timeStamp },
                         key = {it.id}
                     ) { todo ->
-                        TodoCard(
-                            todo = todo,
-                            onDelete = {
-                                mainViewModel.deleteTodo(todo)
-                                snackbar(
-                                    scope,
-                                    snackbarHostState,
-                                    message = UiText.StringResource(R.string.home_deleted_task, todo.task).asString(context),
-                                    actionLabel = UiText.StringResource(R.string.home_undo_delete).asString(context),
-                                    onAction = {mainViewModel.undoDeletedTodo()}
-                                )
-                            },
-                            onUpdate = onUpdate,
-                            onClick = {
-                                mainViewModel.updateTodoIsDone(
-                                    todo.copy(isDone = !todo.isDone)
-                                )
-                            }
-                        )
+                        SwipeToDeleteContainer(
+                            item = todo,
+                            onDelete = { mainViewModel.deleteTodo(todo) }
+                        ) {
+                            TodoCard(
+                                todo = todo,
+                                onDelete = {
+                                    mainViewModel.deleteTodo(todo)
+                                    snackbar(
+                                        scope,
+                                        snackbarHostState,
+                                        message = UiText.StringResource(R.string.home_deleted_task, todo.task).asString(context),
+                                        actionLabel = UiText.StringResource(R.string.home_undo_delete).asString(context),
+                                        onAction = {mainViewModel.undoDeletedTodo()}
+                                    )
+                                },
+                                onUpdate = onUpdate,
+                                onClick = {
+                                    mainViewModel.updateTodoIsDone(
+                                        todo.copy(isDone = !todo.isDone)
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             }
