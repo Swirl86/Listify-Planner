@@ -67,7 +67,10 @@ class SpeechToTextConverter(context: Context) : AudioTranscription {
     override fun startListening() {
         speechRecognizer.startListening(recognizerIntent)
         _state.update {
-            it.copy(isSpeaking = true)
+            it.copy(
+                spokenText = "",
+                isSpeaking = true
+            )
         }
     }
 

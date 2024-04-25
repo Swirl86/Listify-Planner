@@ -5,7 +5,12 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.MicOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,10 +25,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.swirl.listifyplanner.R
+import com.swirl.listifyplanner.presentation.common.drawAnimationBorder
 import com.swirl.listifyplanner.presentation.common.toastMsg
 import com.swirl.listifyplanner.utils.UiText
 import com.swirl.listifyplanner.utils.speech.SpeechToTextConverter
@@ -44,10 +51,6 @@ fun SpeechToTextScreen() {
         } else {
             toastMsg(context, UiText.StringResource(R.string.speech_permission_prompt).asString(context), true)
         }
-    }
-
-    LaunchedEffect (!recordAudioPermissionState.status.isGranted) {
-        requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
 
     val state by speechToTextConverter.state.collectAsState()
@@ -73,16 +76,41 @@ fun SpeechToTextScreen() {
                         requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
                     }
                 }
-            }
+            },
+            modifier = Modifier
+                .width(200.dp)
+                .height(200.dp)
+                .padding(16.dp)
+                .drawAnimationBorder(
+                    strokeWidth = if (state.isSpeaking) 15.dp else 0.dp,
+                    durationMillis = 3500,
+                    shape = RoundedCornerShape(100)
+                )
         ) {
-            Text(
-                text = if (state.isSpeaking) {
-                    UiText.StringResource(R.string.speech_stop).asString(context)
-                } else {
-                    UiText.StringResource(R.string.speech_start).asString(context)
-                },
-                color = if (state.isSpeaking) Color.Red else Color.Green
-            )
+            Column(
+                modifier = Modifier.padding(6.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    imageVector = if (state.isSpeaking) Icons.Default.MicOff else Icons.Default.Mic,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .weight(4f)
+                        .fillMaxSize(),
+                    tint = Color.LightGray
+                )
+                Text(
+                    modifier = Modifier.weight(1f),
+                    fontSize = 10.sp,
+                    text = if (state.isSpeaking) {
+                        UiText.StringResource(R.string.speech_stop).asString(context)
+                    } else {
+                        UiText.StringResource(R.string.speech_start).asString(context)
+                    },
+                    color = Color.LightGray
+                )
+            }
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
