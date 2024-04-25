@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.swirl.listifyplanner.presentation.MainViewModel
+import com.swirl.listifyplanner.presentation.calendar_screen.CalendarScreen
 import com.swirl.listifyplanner.presentation.home_screen.HomeScreen
 import com.swirl.listifyplanner.presentation.update_screen.UpdateScreen
 import com.swirl.listifyplanner.presentation.speech_to_text_screen.SpeechToTextScreen
@@ -104,9 +105,8 @@ fun AppNavigation(mainViewModel: MainViewModel) {
             composable(route = Screens.SpeechToTextScreen.name) {
                 SpeechToTextScreen(mainViewModel)
             }
-            composable(route = Screens.CalenderScreen.name) {
-                // TODO implement calender
-                SpeechToTextScreen(mainViewModel)
+            composable(route = Screens.CalendarScreen.name) {
+                CalendarScreen()
             }
         }
     }

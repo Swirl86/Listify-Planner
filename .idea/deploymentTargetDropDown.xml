@@ -2,7 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="DefaultPreview">
+      <entry key="CalendarScreenPreview">
+        <State />
+      </entry>
+      <entry key="MyDatePickerPreview">
+        <State />
+      </entry>
+      <entry key="MyDateRangePickerPreview">
+        <State />
+      </entry>
+      <entry key="SpeechToTextScreenPreview">
+        <State />
+      </entry>
+      <entry key="TodoCardPreview">
         <State>
           <runningDeviceTargetSelectedWithDropDown>
             <Target>
@@ -15,11 +27,8 @@
               </deviceKey>
             </Target>
           </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-19T09:52:28.582794400Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-25T09:08:52.826305300Z" />
         </State>
-      </entry>
-      <entry key="SpeechToTextScreenPreview">
-        <State />
       </entry>
       <entry key="app">
         <State />

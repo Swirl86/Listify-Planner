@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swirl.listifyplanner.data.model.Todo
@@ -33,6 +34,7 @@ import com.swirl.listifyplanner.presentation.common.taskTextStyle
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.ui.theme.TaskLightYellowBg
 import com.swirl.listifyplanner.utils.extenstions.getOutPutString
+import java.time.LocalDateTime
 
 @Composable
 fun TodoCard(
@@ -47,7 +49,8 @@ fun TodoCard(
     )
 
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .clickable {
                 onClick()
             }
@@ -70,6 +73,7 @@ fun TodoCard(
                     tint = if (todo.isDone) Color.Green else Color.Gray,
                     contentDescription = null
                 )
+                Spacer(modifier = Modifier.padding(end = 6.dp))
                 Text(
                     text = AnnotatedString(todo.task),
                     maxLines = 2,
@@ -82,13 +86,15 @@ fun TodoCard(
                         imageVector = Icons.Rounded.Star,
                         tint = Color.Cyan,
                         contentDescription = null,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier
+                            .weight(1f)
                             .padding(end = 4.dp)
                     )
                 }
                 IconButton(
                     onClick = { onDelete() },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
                         .padding(end = 4.dp)
                 ) {
                     Icon(
@@ -99,7 +105,8 @@ fun TodoCard(
                 }
                 IconButton(
                     onClick = { onUpdate(todo.id) },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
                         .padding(end = 4.dp)
                 ) {
                     Icon(
@@ -111,7 +118,7 @@ fun TodoCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
+                    .padding(6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Spacer(
@@ -125,5 +132,16 @@ fun TodoCard(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun TodoCardPreview() {
+    TodoCard(
+        todo = Todo(0, "Todo for preview", LocalDateTime.now()),
+        onDelete = { /*TODO*/ },
+        onUpdate = { /*TODO*/ }) {
+
     }
 }

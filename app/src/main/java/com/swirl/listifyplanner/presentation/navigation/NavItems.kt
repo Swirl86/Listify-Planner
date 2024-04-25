@@ -24,8 +24,8 @@ val listOfBottomNavItems = listOf(
         route = Screens.SpeechToTextScreen.name
     ),
     NavItem(
-        label = "Calender",
+        label = "Calendar",
         icon = Icons.Default.CalendarMonth,
-        route = Screens.CalenderScreen.name
+        route = Screens.CalendarScreen.name
     )
 )
