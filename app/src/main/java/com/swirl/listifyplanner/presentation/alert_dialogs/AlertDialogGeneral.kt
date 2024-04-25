@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 
 @Composable
-fun AlertDialog_General(
+fun AlertDialogGeneral(
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
     dialogTitle: String,

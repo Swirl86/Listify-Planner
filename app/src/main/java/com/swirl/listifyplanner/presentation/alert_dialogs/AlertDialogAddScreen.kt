@@ -45,7 +45,7 @@ import kotlinx.coroutines.job
 import java.time.LocalDateTime
 
 @Composable
-fun AlertDialog_AddScreen(
+fun AlertDialogAddScreen(
     openDialog: Boolean,
     onClose: () -> Unit,
     mainViewModel: MainViewModel,

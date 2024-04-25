@@ -11,14 +11,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +35,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.snackbar
-import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialog_AddScreen
+import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialogAddScreen
+import com.swirl.listifyplanner.presentation.common.DraggableComponent
 import com.swirl.listifyplanner.presentation.common.SwipeToDeleteContainer
 import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
@@ -51,18 +55,27 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
+    // ExtendedFloatingActionButton
+    val listState = rememberLazyListState()
+    val isExpanded by remember { derivedStateOf { listState.firstVisibleItemIndex == 0 } }
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             MyTopAppBar(size = todos.size, onDeleteAll = { mainViewModel.deleteAllTodos() })
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { openDialog = true }) {
-                Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
+            DraggableComponent {
+                ExtendedFloatingActionButton(
+                    text = { Text(text = UiText.StringResource(R.string.add_todo).asString(context)) },
+                    icon = { Icon(imageVector = Icons.Rounded.Add, contentDescription = null) },
+                    expanded = isExpanded,
+                    onClick = { openDialog = true }
+                )
             }
         }
     ) { paddingValues ->
-        AlertDialog_AddScreen(
+        AlertDialogAddScreen(
             openDialog = openDialog,
             onClose = { openDialog = false },
             mainViewModel = mainViewModel
@@ -80,7 +93,8 @@ fun HomeScreen(
                         .fillMaxSize()
                         .padding(paddingValues),
                     contentPadding = PaddingValues(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    state = listState
                 ) {
                     items(
                         items = todos.sortedBy { it.timeStamp },

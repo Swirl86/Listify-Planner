@@ -15,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
@@ -38,4 +40,10 @@ fun EmptyToDoScreen(paddingValues: PaddingValues) {
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun EmptyToDoScreenPreview() {
+    EmptyToDoScreen(PaddingValues(8.dp))
 }

@@ -1,5 +1,6 @@
 package com.swirl.listifyplanner.presentation.speech_to_text_screen
 
+import TitleTopAppBar
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -37,7 +38,8 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
-import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialog_AddScreen
+import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialogAddScreen
+import com.swirl.listifyplanner.presentation.common.DraggableComponent
 import com.swirl.listifyplanner.presentation.common.drawAnimationBorder
 import com.swirl.listifyplanner.presentation.common.toastMsg
 import com.swirl.listifyplanner.utils.UiText
@@ -49,9 +51,7 @@ fun SpeechToTextScreen(mainViewModel: MainViewModel) {
     val context = LocalContext.current
     val recordAudioPermissionState = rememberPermissionState(Manifest.permission.RECORD_AUDIO)
 
-    val speechToTextConverter = remember(context) {
-        SpeechToTextConverter(context)
-    }
+    val speechToTextConverter = remember(context) { SpeechToTextConverter(context) }
 
     val requestPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
         if (isGranted) {
@@ -70,20 +70,30 @@ fun SpeechToTextScreen(mainViewModel: MainViewModel) {
     }
 
     Scaffold(
+        topBar = { TitleTopAppBar(title = UiText.StringResource(R.string.speech_top_title).asString(context)) },
         floatingActionButton = {
-            FloatingActionButton(onClick = { openDialog = true }) {
-                Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
+            if (state.spokenText.isNotEmpty()) {
+                DraggableComponent {
+                    FloatingActionButton(
+                        shape = RoundedCornerShape(percent = 100),
+                        onClick = { openDialog = true }
+                    ) {
+                        Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
+                    }
+                }
             }
         }
     ) { paddingValues ->
-        AlertDialog_AddScreen(
+        AlertDialogAddScreen(
             openDialog = openDialog,
             onClose = { openDialog = false },
             mainViewModel = mainViewModel,
             state.spokenText.takeUnless { it.isEmpty() }
         )
         Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -144,10 +154,10 @@ fun SpeechToTextScreen(mainViewModel: MainViewModel) {
             ) {
                 Box(
                     modifier = Modifier
-                    .defaultMinSize(200.dp, 60.dp)
-                    .border(width = 4.dp, color = Color.Gray, shape = RoundedCornerShape(16.dp))
-                    .background(Color.LightGray)
-                    .padding(8.dp),
+                        .defaultMinSize(200.dp, 60.dp)
+                        .border(width = 4.dp, color = Color.Gray, shape = RoundedCornerShape(16.dp))
+                        .background(Color.LightGray)
+                        .padding(8.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(

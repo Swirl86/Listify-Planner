@@ -18,6 +18,7 @@
     <string name="todo_important">Important</string>
 
     <!-- Speech_To_Text_screen  -->
+    <string name="speech_top_title">Talk to me</string>
     <string name="speech_start">Start Recording</string>
     <string name="speech_stop">Stop Recording</string>
     <string name="speech_permission_prompt">This app requires the access to Microphone to record your voice.</string>
