@@ -1,4 +1,4 @@
-package com.swirl.listifyplanner.presentation.home_screen.components.alert_dialogs
+package com.swirl.listifyplanner.presentation.alert_dialogs
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon

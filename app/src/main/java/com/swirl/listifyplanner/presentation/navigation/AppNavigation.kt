@@ -102,11 +102,11 @@ fun AppNavigation(mainViewModel: MainViewModel) {
                 }
             }
             composable(route = Screens.SpeechToTextScreen.name) {
-                SpeechToTextScreen()
+                SpeechToTextScreen(mainViewModel)
             }
             composable(route = Screens.CalenderScreen.name) {
                 // TODO implement calender
-                SpeechToTextScreen()
+                SpeechToTextScreen(mainViewModel)
             }
         }
     }

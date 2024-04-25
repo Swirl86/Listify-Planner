@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
-import com.swirl.listifyplanner.presentation.home_screen.components.alert_dialogs.AlertDialog_General
+import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialog_General
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

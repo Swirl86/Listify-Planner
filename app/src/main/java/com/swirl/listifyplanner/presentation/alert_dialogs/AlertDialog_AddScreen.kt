@@ -1,4 +1,4 @@
-package com.swirl.listifyplanner.presentation.home_screen.components.alert_dialogs
+package com.swirl.listifyplanner.presentation.alert_dialogs
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -48,10 +48,12 @@ import java.time.LocalDateTime
 fun AlertDialog_AddScreen(
     openDialog: Boolean,
     onClose: () -> Unit,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    todoText: String? = null
 ) {
     var text by remember {  mutableStateOf("") }
     var isImportant by remember { mutableStateOf(false) }
+    todoText?.let { text = it }
 
     val todo = Todo(0, text, LocalDateTime.now(), isImportant)
 

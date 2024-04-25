@@ -32,7 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.snackbar
-import com.swirl.listifyplanner.presentation.home_screen.components.alert_dialogs.AlertDialog_AddScreen
+import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialog_AddScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
 import com.swirl.listifyplanner.presentation.home_screen.components.TodoCard
