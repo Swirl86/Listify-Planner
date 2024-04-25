@@ -21,6 +21,7 @@
     <string name="speech_start">Start Recording</string>
     <string name="speech_stop">Stop Recording</string>
     <string name="speech_result_shown">Result will be shown here</string>
+    <string name="speech_permission_prompt">This app requires the access to Microphone to record your voice.</string>
 
 
     <!-- General -->

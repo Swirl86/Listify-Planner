@@ -7,42 +7,56 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.swirl.listifyplanner.presentation.common.toastMsg
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
-class SpeechToTextConverter(
-    private val context: Context,
-    private val listener: (String) -> Unit
-) : AudioTranscription {
+class SpeechToTextConverter(context: Context) : AudioTranscription {
+
+    private val _state = MutableStateFlow(SpeechToTextConverterState())
+    val state = _state.asStateFlow()
 
     private val speechRecognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
     private val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
 
     private val recognitionListener = object : RecognitionListener {
-        override fun onReadyForSpeech(params: Bundle?) = Unit
+        override fun onReadyForSpeech(params: Bundle?) {
+            _state.update {
+                it.copy(error = null)
+            }
+        }
         override fun onBeginningOfSpeech() = Unit
         override fun onRmsChanged(rmsdB: Float) = Unit
         override fun onBufferReceived(buffer: ByteArray?) = Unit
-        override fun onEndOfSpeech() = Unit
+        override fun onEndOfSpeech() {
+            _state.update {
+                it.copy(isSpeaking = false)
+            }
+        }
         override fun onError(error: Int) {
-            when(error) {
-                SpeechRecognizer.ERROR_NO_MATCH,
-                SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> toastMsg(context, "No match or timeout : $error")
-                else -> toastMsg(context, "Something went wrong : $error")
+            if (error == SpeechRecognizer.ERROR_CLIENT) return
+
+            _state.update {
+                it.copy(error = "Error : $error")
             }
         }
         override fun onResults(results: Bundle?) {
             results
                 ?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 ?.getOrNull(0)
-                ?.let {
-                    listener.invoke(it)
-                } ?: toastMsg(context, "Got no text to work with")
+                ?.let { result ->
+                    _state.update {
+                        it.copy(spokenText = result)
+                    }
+                }
         }
         override fun onPartialResults(partialResults: Bundle?) = Unit
         override fun onEvent(eventType: Int, params: Bundle?) = Unit
     }
 
     init {
+        _state.update { SpeechToTextConverterState() }
         setRecognitionListener(recognitionListener)
     }
 
@@ -52,9 +66,15 @@ class SpeechToTextConverter(
 
     override fun startListening() {
         speechRecognizer.startListening(recognizerIntent)
+        _state.update {
+            it.copy(isSpeaking = true)
+        }
     }
 
     override fun stopListening() {
+        _state.update {
+            it.copy(isSpeaking = false)
+        }
         speechRecognizer.stopListening()
     }
 }
