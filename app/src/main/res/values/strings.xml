@@ -23,6 +23,9 @@
     <string name="speech_stop">Stop Recording</string>
     <string name="speech_permission_prompt">This app requires the access to Microphone to record your voice.</string>
 
+    <!-- Empty_screen  -->
+    <string name="empty_calendar_title">No Calendar Notes!</string>
+    <string name="empty_home_screen_title">No Todos!</string>
 
     <!-- General -->
     <string name="button_save">Save</string>

@@ -6,6 +6,7 @@ import androidx.compose.material3.TimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
+import com.swirl.listifyplanner.utils.getTimePickerColors
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,7 +22,9 @@ fun MyTimePicker() {
         )
     }
 
-    TimePicker(state = timePickerState)
+    val colors = getTimePickerColors()
+
+    TimePicker(state = timePickerState, colors = colors)
 }
 
 @Preview(showBackground = true)

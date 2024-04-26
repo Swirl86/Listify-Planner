@@ -33,7 +33,7 @@ import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.presentation.common.taskTextStyle
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.ui.theme.TaskLightYellowBg
-import com.swirl.listifyplanner.utils.extenstions.getOutPutString
+import com.swirl.listifyplanner.utils.extenstions.dateTimeToString
 import java.time.LocalDateTime
 
 @Composable
@@ -126,7 +126,7 @@ fun TodoCard(
                         .weight(1f)
                         .fillMaxWidth())
                 Text(
-                    text = todo.timeStamp.getOutPutString(),
+                    text = todo.timeStamp.dateTimeToString(),
                     modifier = Modifier.padding(4.dp),
                     fontSize = 10.sp
                 )

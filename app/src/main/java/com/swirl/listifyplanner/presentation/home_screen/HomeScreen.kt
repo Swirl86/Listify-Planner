@@ -37,6 +37,7 @@ import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.common.snackbar
 import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialogAddScreen
 import com.swirl.listifyplanner.presentation.common.DraggableComponent
+import com.swirl.listifyplanner.presentation.common.EmptyScreen
 import com.swirl.listifyplanner.presentation.common.SwipeToDeleteContainer
 import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
@@ -81,7 +82,10 @@ fun HomeScreen(
             mainViewModel = mainViewModel
         )
         if (todos.isEmpty()) {
-            EmptyToDoScreen(paddingValues = paddingValues)
+            EmptyScreen(
+                text = UiText.StringResource(R.string.empty_home_screen_title).asString(context),
+                paddingValues = paddingValues
+            )
         } else {
             AnimatedVisibility(
                 visible = true,
