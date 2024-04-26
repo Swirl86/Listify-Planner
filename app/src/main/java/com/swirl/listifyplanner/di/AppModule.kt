@@ -1,7 +1,9 @@
 package com.swirl.listifyplanner.di
 
+import com.swirl.listifyplanner.data.repository.CalendarNoteRepository
 import com.swirl.listifyplanner.data.repository.TodoRepository
 import com.swirl.listifyplanner.db.AppDatabase
+import com.swirl.listifyplanner.db.dao.CalendarNoteDao
 import com.swirl.listifyplanner.db.dao.TodoDao
 import dagger.Module
 import dagger.Provides
@@ -20,5 +22,13 @@ object AppModule {
     @Provides
     @Singleton
     fun provideTodoRepository(todoDao: TodoDao) = TodoRepository(todoDao = todoDao)
+
+    @Provides
+    @Singleton
+    fun provideCalendarNoteDao(db: AppDatabase): CalendarNoteDao = db.calendarNoteDao()
+
+    @Provides
+    @Singleton
+    fun provideCalendarNoteRepository(calendarNoteDao: CalendarNoteDao) = CalendarNoteRepository(cnDao = calendarNoteDao)
 
 }
