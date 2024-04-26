@@ -39,7 +39,6 @@ import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialogAddScreen
 import com.swirl.listifyplanner.presentation.common.DraggableComponent
 import com.swirl.listifyplanner.presentation.common.EmptyScreen
 import com.swirl.listifyplanner.presentation.common.SwipeToDeleteContainer
-import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
 import com.swirl.listifyplanner.presentation.home_screen.components.TodoCard
 import com.swirl.listifyplanner.utils.UiText
