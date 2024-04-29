@@ -21,8 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,7 +64,7 @@ fun AlertDialogAddScreen(
         AlertDialog(
             title = {
                 Text(
-                    text = UiText.StringResource(R.string.add_todo).asString(context),
+                    text = UiText.StringResource(R.string.add_todo).asString(),
                     fontFamily = FontFamily.Serif
                 )
             },
@@ -81,12 +81,12 @@ fun AlertDialogAddScreen(
                     OutlinedTextField(
                         value = text,
                         label = { Text(
-                            text = UiText.StringResource(R.string.add_todo_title).asString(context)
+                            text = UiText.StringResource(R.string.add_todo_title).asString()
                         ) },
                         onValueChange = { text = it },
                         placeholder = {
                             Text(
-                                text = UiText.StringResource(R.string.add_todo_sub_title).asString(context),
+                                text = UiText.StringResource(R.string.add_todo_sub_title).asString(),
                                 fontFamily = FontFamily.Monospace
                             )
                         },
@@ -127,7 +127,7 @@ fun AlertDialogAddScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = UiText.StringResource(R.string.todo_important).asString(context),
+                            text = UiText.StringResource(R.string.todo_important).asString(),
                             fontFamily = FontFamily.Monospace,
                             fontSize = 18.sp
                         )
@@ -145,20 +145,23 @@ fun AlertDialogAddScreen(
                 isImportant = false
             },
             confirmButton = {
-                Button(onClick = {
-                    if (text.isNotBlank()) {
-                        mainViewModel.insertTodo(todo)
-                        text = ""
-                        isImportant = false
-                        onClose()
-                    } else {
-                        toastMsg(
-                            context,
-                            UiText.StringResource(R.string.add_todo_empty).asString(context)
-                        )
+                Button(
+                    enabled = text.isNotEmpty(),
+                    onClick = {
+                        if (text.isNotBlank()) {
+                            mainViewModel.insertTodo(todo)
+                            text = ""
+                            isImportant = false
+                            onClose()
+                        } else {
+                            toastMsg(
+                                context,
+                                UiText.StringResource(R.string.add_todo_empty).asString(context)
+                            )
+                        }
                     }
-                }) {
-                    Text(text = UiText.StringResource(R.string.button_save).asString(context))
+                ) {
+                    Text(text = UiText.StringResource(R.string.button_save).asString())
                 }
             },
             dismissButton = {
@@ -167,7 +170,7 @@ fun AlertDialogAddScreen(
                     text = ""
                     isImportant = false
                 }) {
-                    Text(text = UiText.StringResource(R.string.button_close).asString(context))
+                    Text(text = UiText.StringResource(R.string.button_close).asString())
                 }
             }
         )

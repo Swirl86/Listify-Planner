@@ -74,7 +74,7 @@ fun CalendarScreen(mainViewModel: MainViewModel) {
             ) {
                 if (calendarNotes.isEmpty()) {
                     EmptyScreen(
-                        text = UiText.StringResource(R.string.empty_calendar_title).asString(context),
+                        text = UiText.StringResource(R.string.empty_calendar_title).asString(),
                         paddingValues = paddingValues
                     )
                 } else {

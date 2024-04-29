@@ -26,7 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.swirl.listifyplanner.R
+import com.swirl.listifyplanner.utils.UiText
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,7 +95,7 @@ fun DeleteBackground(
     ) {
         Icon(
             imageVector = Icons.Default.Delete,
-            contentDescription = null,
+            contentDescription = UiText.StringResource( R.string.icon_delete).asString(),
             tint = Color.White
         )
     }

@@ -18,8 +18,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
 import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialogGeneral
+import com.swirl.listifyplanner.utils.UiText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +56,7 @@ fun MyTopAppBar(
                     Icon(
                         Icons.Rounded.DeleteForever,
                         tint = Color.Red,
-                        contentDescription = "Delete"
+                        contentDescription = UiText.StringResource(R.string.icon_delete).asString()
                     )
                 }
             }

@@ -31,13 +31,25 @@
     <string name="empty_home_screen_title">No Todos!</string>
 
     <!-- General -->
+    <string name="button_ok">OK</string>
     <string name="button_save">Save</string>
+    <string name="button_confirm">Confirm</string>
     <string name="button_close">Close</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_dismiss">Dismiss</string>
 
     <!-- Error -->
     <string name="error_unknown">Something went wrong</string>
 
     <!-- Content Description -->
+    <string name="icon_general_alert_dialog">General alert dialog Icon</string>
+    <string name="icon_calendar">Calendar Icon</string>
+    <string name="icon_mic">Microphone Icon</string>
+    <string name="icon_delete">Delete Icon</string>
+    <string name="icon_add">Add Icon</string>
+    <string name="icon_edit">Edit Icon</string>
+    <string name="icon_check">Check Icon</string>
+    <string name="icon_star">Star Icon</string>
+    <string name="icon_nav">Navigation Icon</string>
 
 </resources>

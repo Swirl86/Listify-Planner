@@ -67,8 +67,11 @@ fun HomeScreen(
         floatingActionButton = {
             DraggableComponent {
                 ExtendedFloatingActionButton(
-                    text = { Text(text = UiText.StringResource(R.string.add_todo).asString(context)) },
-                    icon = { Icon(imageVector = Icons.Rounded.Add, contentDescription = null) },
+                    text = { Text(text = UiText.StringResource(R.string.add_todo).asString()) },
+                    icon = { Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = UiText.StringResource(R.string.icon_add).asString()
+                    ) },
                     expanded = isExpanded,
                     onClick = { openDialog = true }
                 )
@@ -82,7 +85,7 @@ fun HomeScreen(
         )
         if (todos.isEmpty()) {
             EmptyScreen(
-                text = UiText.StringResource(R.string.empty_home_screen_title).asString(context),
+                text = UiText.StringResource(R.string.empty_home_screen_title).asString(),
                 paddingValues = paddingValues
             )
         } else {

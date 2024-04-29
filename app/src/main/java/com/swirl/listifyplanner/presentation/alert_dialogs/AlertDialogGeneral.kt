@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.swirl.listifyplanner.R
+import com.swirl.listifyplanner.utils.UiText
 
 
 @Composable
@@ -22,7 +24,7 @@ fun AlertDialogGeneral(
 ) {
     AlertDialog(
         icon = {
-            Icon(icon, modifier = modifier, tint = tintColor, contentDescription = null)
+            Icon(icon, modifier = modifier, tint = tintColor, contentDescription = UiText.StringResource(R.string.icon_general_alert_dialog).asString())
         },
         title = {
             Text(text = dialogTitle)
@@ -39,7 +41,7 @@ fun AlertDialogGeneral(
                     onConfirmation()
                 }
             ) {
-                Text("Confirm")
+                Text(UiText.StringResource(R.string.button_confirm).asString())
             }
         },
         dismissButton = {
@@ -48,7 +50,7 @@ fun AlertDialogGeneral(
                     onDismissRequest()
                 }
             ) {
-                Text("Dismiss")
+                Text(UiText.StringResource(R.string.button_dismiss).asString())
             }
         }
     )

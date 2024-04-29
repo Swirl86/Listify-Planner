@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swirl.listifyplanner.R
@@ -34,7 +33,6 @@ import java.time.LocalDateTime
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyDatePicker(onButtonClick: (String) -> Unit) {
-    val context = LocalContext.current
     val dateTime = LocalDateTime.now()
     val datePickerState = remember {
         DatePickerState(
@@ -54,9 +52,9 @@ fun MyDatePicker(onButtonClick: (String) -> Unit) {
         horizontalArrangement = Arrangement.Start
     ) {
         TextWithIconButton(
-            text =  UiText.StringResource(R.string.calendar_top_title).asString(context),
+            text =  UiText.StringResource(R.string.calendar_top_title).asString(),
             icon = Icons.Default.CalendarMonth,
-            contentDescription = "Calendar Icon",
+            contentDescription = UiText.StringResource(R.string.icon_calendar).asString(),
             tint = TaskLightGreenBg,
             onClick = { showDialog = true }
         )
@@ -73,14 +71,14 @@ fun MyDatePicker(onButtonClick: (String) -> Unit) {
                             }
                         }
                     ) {
-                        Text(text = "OK")
+                        Text(text = UiText.StringResource(R.string.button_ok).asString())
                     }
                 },
                 dismissButton = {
                     Button(
                         onClick = { showDialog = false }
                     ) {
-                        Text(text = "Cancel")
+                        Text(text = UiText.StringResource(R.string.button_cancel).asString())
                     }
                 }
             ) {
