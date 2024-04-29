@@ -1,19 +1,17 @@
 package com.swirl.listifyplanner.presentation.calendar_screen.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,16 +20,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.swirl.listifyplanner.R
+import com.swirl.listifyplanner.presentation.common.TextWithIconButton
+import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
+import com.swirl.listifyplanner.utils.UiText
 import com.swirl.listifyplanner.utils.extenstions.*
 import com.swirl.listifyplanner.utils.getDatePickerColors
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyDatePicker() {
+fun MyDatePicker(onButtonClick: (String) -> Unit) {
+    val context = LocalContext.current
     val dateTime = LocalDateTime.now()
     val datePickerState = remember {
         DatePickerState(
@@ -43,24 +46,19 @@ fun MyDatePicker() {
     }
 
     val selectedDate  = datePickerState.selectedDateMillis?.convertMillisToLocalDate()
-    val dateToString = selectedDate?.dateToString() ?: "Choose Date"
     var showDialog by remember { mutableStateOf(false) }
-
     val colors = getDatePickerColors()
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
     ) {
-        Text(
-            modifier = Modifier.fillMaxWidth()
-                .clickable(onClick = {
-                    showDialog = true
-                }),
-            text = dateToString,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.headlineMedium
+        TextWithIconButton(
+            text =  UiText.StringResource(R.string.calendar_top_title).asString(context),
+            icon = Icons.Default.CalendarMonth,
+            contentDescription = "Calendar Icon",
+            tint = TaskLightGreenBg,
+            onClick = { showDialog = true }
         )
         if (showDialog) {
             DatePickerDialog(
@@ -68,7 +66,12 @@ fun MyDatePicker() {
                 onDismissRequest = { showDialog = false },
                 confirmButton = {
                     Button(
-                        onClick = { showDialog = false }
+                        onClick = {
+                            showDialog = false
+                            selectedDate?.dateToString()?.let {
+                                onButtonClick(it)
+                            }
+                        }
                     ) {
                         Text(text = "OK")
                     }
@@ -95,5 +98,7 @@ fun MyDatePicker() {
 @Preview(showBackground = true)
 @Composable
 fun MyDatePickerPreview() {
-    MyDatePicker()
+    MyDatePicker(onButtonClick = {
+        println("Button clicked!")
+    })
 }

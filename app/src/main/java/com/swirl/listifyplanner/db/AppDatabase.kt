@@ -9,7 +9,10 @@ import com.swirl.listifyplanner.db.dao.CalendarNoteDao
 import com.swirl.listifyplanner.db.dao.TodoDao
 
 @Database(
-    entities = [Todo::class, CalendarNote::class],
+    entities = [
+        Todo::class,
+        CalendarNote::class
+    ],
     version = 1,
     exportSchema = false
 )

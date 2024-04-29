@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
     id("dagger.hilt.android.plugin")
-    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -57,6 +57,7 @@ android {
     }
 
     ksp {
+        arg("room.generateKotlin", "true")
         arg("room.schemaLocation", "$projectDir/schemas")
     }
 }
@@ -97,16 +98,14 @@ dependencies {
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
-    kapt(libs.androidx.hilt.compiler)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.androidx.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
 
     //Room
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
-
-    // Kotlin extensions and Room coroutine support
-    implementation(libs.androidx.room.ktx)
 
     //Retrofit
     implementation(libs.retrofit)

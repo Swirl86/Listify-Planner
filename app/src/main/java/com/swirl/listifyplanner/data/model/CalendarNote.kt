@@ -3,12 +3,13 @@ package com.swirl.listifyplanner.data.model
 import androidx.compose.ui.graphics.Color
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.time.LocalDate
 
-@Entity(tableName = "calendarNote")
+@Entity(tableName = "calendarNotes")
 data class CalendarNote(
     @PrimaryKey
     val date: LocalDate,
-    val notes: List<Note> = listOf(),
-    val color: Color
-)
+    val color: Color,
+    val notes: List<Note> = emptyList()
+): Serializable

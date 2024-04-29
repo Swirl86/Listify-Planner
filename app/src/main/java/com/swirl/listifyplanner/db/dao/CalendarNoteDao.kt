@@ -2,7 +2,6 @@ package com.swirl.listifyplanner.db.dao
 
 import androidx.room.*
 import com.swirl.listifyplanner.data.model.CalendarNote
-import com.swirl.listifyplanner.data.model.Todo
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
@@ -18,13 +17,14 @@ interface CalendarNoteDao {
     @Delete
     suspend fun delete(cNote: CalendarNote)
 
-    @Query("DELETE FROM calendarNote")
+    @Query("DELETE FROM calendarNotes")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM calendarNote WHERE date = :id")
-    suspend fun getCalendarNoteById(id: LocalDate): CalendarNote
+    @Transaction
+    @Query("SELECT * FROM calendarNotes WHERE date = :date")
+    suspend fun getCalendarNoteByDate(date: LocalDate): CalendarNote?
 
-    @Query("SELECT * FROM calendarNote")
+    @Query("SELECT * FROM calendarNotes")
     fun getAllCalendarNotes(): Flow<List<CalendarNote>>
 
 }
