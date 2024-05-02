@@ -24,8 +24,8 @@ import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.CalendarScreen
 import com.swirl.listifyplanner.presentation.home_screen.HomeScreen
-import com.swirl.listifyplanner.presentation.update_screen.UpdateScreen
 import com.swirl.listifyplanner.presentation.speech_to_text_screen.SpeechToTextScreen
+import com.swirl.listifyplanner.presentation.update_screen.UpdateScreen
 import com.swirl.listifyplanner.utils.UiText
 
 @Composable

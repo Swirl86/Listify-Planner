@@ -23,10 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.swirl.listifyplanner.R
-import com.swirl.listifyplanner.presentation.common.TextWithIconButton
+import com.swirl.listifyplanner.presentation.common.TextIconButton
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.utils.UiText
-import com.swirl.listifyplanner.utils.extenstions.*
+import com.swirl.listifyplanner.utils.extenstions.convertMillisToLocalDate
+import com.swirl.listifyplanner.utils.extenstions.dateToString
+import com.swirl.listifyplanner.utils.extenstions.toMillis
+import com.swirl.listifyplanner.utils.extenstions.yearRange
 import com.swirl.listifyplanner.utils.getDatePickerColors
 import java.time.LocalDateTime
 
@@ -51,7 +54,7 @@ fun MyDatePicker(onButtonClick: (String) -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        TextWithIconButton(
+        TextIconButton(
             text =  UiText.StringResource(R.string.calendar_top_title).asString(),
             icon = Icons.Default.CalendarMonth,
             contentDescription = UiText.StringResource(R.string.icon_calendar).asString(),
@@ -60,6 +63,7 @@ fun MyDatePicker(onButtonClick: (String) -> Unit) {
         )
         if (showDialog) {
             DatePickerDialog(
+                modifier = Modifier.padding(8.dp),
                 shape = RoundedCornerShape(6.dp),
                 onDismissRequest = { showDialog = false },
                 confirmButton = {
@@ -84,7 +88,7 @@ fun MyDatePicker(onButtonClick: (String) -> Unit) {
             ) {
                 DatePicker(
                     state = datePickerState,
-                    modifier = Modifier.padding(8.dp).weight(1f),
+                    modifier = Modifier.weight(1f),
                     colors = colors,
                     showModeToggle = true
                 )

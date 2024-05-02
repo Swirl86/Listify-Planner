@@ -4,6 +4,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -14,19 +16,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.ui.theme.DeepPurple700
+import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
+import com.swirl.listifyplanner.utils.UiText
 import com.swirl.listifyplanner.utils.getButtonElevation
 
 @Composable
-fun TextWithIconButton(
+fun TextIconButton(
     text: String,
-    icon: ImageVector,
+    icon: ImageVector? = null,
     contentDescription: String,
     tint: Color = Color.White,
-    iconSize: Int = 32,
-    padding: Int = 8,
-    style: TextStyle = MaterialTheme.typography.headlineSmall,
+    iconSize: Int = 24,
+    padding: Int = 6,
+    style: TextStyle = MaterialTheme.typography.bodyLarge,
     onClick: () -> Unit
 ) {
     Button(
@@ -42,27 +48,8 @@ fun TextWithIconButton(
             text = text,
             style = style
         )
-        Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-        Icon(
-                modifier = Modifier.size(iconSize.dp),
-                imageVector = icon,
-                tint = tint,
-                contentDescription = contentDescription
-         )
-
-    }
-    /*Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
-    ) {
-        Text(
-            text = text,
-            modifier = Modifier.padding(end = padding.dp),
-            style = style
-        )
-        IconButton(
-            onClick = onClick,
-        ) {
+        icon?.let {
+            Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             Icon(
                 modifier = Modifier.size(iconSize.dp),
                 imageVector = icon,
@@ -70,5 +57,17 @@ fun TextWithIconButton(
                 contentDescription = contentDescription
             )
         }
-    }*/
+    }
+}
+
+@Preview
+@Composable
+fun TextWithIconButtonPreview() {
+    TextIconButton(
+        text =  UiText.StringResource(R.string.calendar_top_title).asString(),
+        icon = Icons.Default.CalendarMonth,
+        contentDescription = UiText.StringResource(R.string.icon_calendar).asString(),
+        tint = TaskLightGreenBg,
+        onClick = {}
+    )
 }

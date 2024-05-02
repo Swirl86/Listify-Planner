@@ -1,11 +1,14 @@
 package com.swirl.listifyplanner.presentation.calendar_screen
 
 import TitleTopAppBar
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,6 +16,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,6 +36,10 @@ import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.MyDatePicker
 import com.swirl.listifyplanner.presentation.common.EmptyScreen
 import com.swirl.listifyplanner.presentation.common.SwipeToDeleteContainer
+import com.swirl.listifyplanner.presentation.common.TextIconButton
+import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickedDisplay
+import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickerDialog
+import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.utils.UiText
 
 @Composable
@@ -39,13 +49,9 @@ fun CalendarScreen(mainViewModel: MainViewModel) {
     val calendarNotes by mainViewModel.getAllCalendarNotes.collectAsStateWithLifecycle(initialValue = emptyList())
     val listState = rememberLazyListState()
     var chosenDate by remember { mutableStateOf("") }
+    var chosenColor by remember { mutableStateOf(Color.LightGray) }
+    var showColorPickerDialog by remember { mutableStateOf(false) }
 
-    /* TODO
-    *
-    * - Show list of dates and how many notes related, maybe dropdown to show each note
-    * - Top part of view add new note related to picked date
-    * - Functionality add, edit and delete
-    */
     Scaffold(
         topBar = { TitleTopAppBar(title = "Calendar") }
     ) { paddingValues ->
@@ -57,17 +63,34 @@ fun CalendarScreen(mainViewModel: MainViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
+            Column(
                 modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 MyDatePicker(onButtonClick = { dateString ->
-                    // TODO open create note for date
                     chosenDate = dateString
                 })
+                TextIconButton(
+                    text =  UiText.StringResource(R.string.calendar_choose_color).asString(),
+                    icon = Icons.Default.ColorLens,
+                    contentDescription = UiText.StringResource(R.string.icon_color_lens).asString(),
+                    tint = TaskLightGreenBg,
+                    onClick = { showColorPickerDialog = true }
+                )
+                if (showColorPickerDialog) {
+                    ColorPickerDialog(
+                        onDismiss = { showColorPickerDialog = !showColorPickerDialog },
+                        onNegativeClick = { showColorPickerDialog = !showColorPickerDialog },
+                        onPositiveClick = { color ->
+                            showColorPickerDialog = !showColorPickerDialog
+                            chosenColor = color
+                        }
+                    )
+                }
             }
-            if (chosenDate.isNotEmpty()) Text(text = chosenDate) // TODO remove
-            Row(
+            ColorPickedDisplay(color = chosenColor, height = 20)
+            Column(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxSize()
@@ -99,6 +122,7 @@ fun CalendarScreen(mainViewModel: MainViewModel) {
                                     item = calendarNote,
                                     onDelete = { mainViewModel.deleteCalendarNote(calendarNote) }
                                 ) {
+                                    // TODO update design for CalendarNote
                                     /*TodoCard(
                                         todo = todo,
                                         onDelete = {

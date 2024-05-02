@@ -44,12 +44,15 @@ import com.swirl.listifyplanner.utils.UiText
 import kotlinx.coroutines.job
 import java.time.LocalDateTime
 
+/**
+ * Add a new todo_object from home_screen or speech_to_text screen
+ */
 @Composable
 fun AlertDialogAddScreen(
     openDialog: Boolean,
     onClose: () -> Unit,
     mainViewModel: MainViewModel,
-    todoText: String? = null
+    todoText: String? = null /* Value from speech_to_text screen */
 ) {
     var text by remember {  mutableStateOf("") }
     var isImportant by remember { mutableStateOf(false) }
@@ -175,5 +178,4 @@ fun AlertDialogAddScreen(
             }
         )
     }
-
 }
