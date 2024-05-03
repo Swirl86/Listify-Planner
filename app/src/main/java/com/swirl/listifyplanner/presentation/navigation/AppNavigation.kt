@@ -52,7 +52,7 @@ fun AppNavigation(mainViewModel: MainViewModel) {
                         icon = {
                             Icon(
                                 imageVector = navItem.icon,
-                                contentDescription = UiText.StringResource(R.string.icon_nav).asString()
+                                contentDescription = UiText.StringResource(R.string.icon_arrow_back).asString()
                             )
                         },
                         label = {

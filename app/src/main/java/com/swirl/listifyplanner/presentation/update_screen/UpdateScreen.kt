@@ -65,7 +65,7 @@ fun UpdateScreen(
                     IconButton(onClick = { onBack() }) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBackIosNew,
-                            contentDescription = UiText.StringResource(R.string.icon_nav).asString()
+                            contentDescription = UiText.StringResource(R.string.icon_arrow_back).asString()
                         )
                     }
                 })

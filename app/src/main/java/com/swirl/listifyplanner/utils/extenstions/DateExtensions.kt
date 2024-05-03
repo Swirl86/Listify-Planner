@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.temporal.WeekFields
 import java.util.Locale
 
 fun LocalDateTime.dateTimeToString(): String {
@@ -37,3 +38,7 @@ fun LocalDate.dateToString(): String {
     val dateInMillis = convertMillisToLocalDateWithFormatter(this, dateFormatter)
     return dateFormatter.format(dateInMillis)
 }
+
+/** Extension function to get ISO week number */
+val LocalDate.isoWeekNumber: Int
+    get() = this.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear())

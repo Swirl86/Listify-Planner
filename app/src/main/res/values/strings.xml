@@ -56,7 +56,8 @@
     <string name="icon_edit">Edit Icon</string>
     <string name="icon_check">Check Icon</string>
     <string name="icon_star">Star Icon</string>
-    <string name="icon_nav">Navigation Icon</string>
+    <string name="icon_arrow_back">Navigate Back Icon</string>
+    <string name="icon_arrow_up">Navigate Up Icon</string>
 
     <string name="img_dice">Dice Image</string>
 
