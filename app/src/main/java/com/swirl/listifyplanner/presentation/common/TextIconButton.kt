@@ -33,9 +33,11 @@ fun TextIconButton(
     iconSize: Int = 24,
     padding: Int = 6,
     style: TextStyle = MaterialTheme.typography.bodyLarge,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    isEnabled: Boolean = true
 ) {
     Button(
+        enabled = isEnabled,
         onClick = onClick,
         modifier = Modifier
             .padding(8.dp),

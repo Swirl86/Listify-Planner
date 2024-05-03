@@ -1,4 +1,4 @@
-package com.swirl.listifyplanner.presentation.calendar_screen.components
+package com.swirl.listifyplanner.presentation.calendar_screen.components.date.picker
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePicker

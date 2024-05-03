@@ -42,6 +42,7 @@
     <string name="button_close">Close</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_dismiss">Dismiss</string>
+    <string name="button_clear">Clear</string>
 
     <!-- Error -->
     <string name="error_unknown">Something went wrong</string>
