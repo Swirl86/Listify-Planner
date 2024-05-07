@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.CalendarList
 import com.swirl.listifyplanner.presentation.calendar_screen.components.CalendarScreenHeader
@@ -21,6 +23,7 @@ import java.time.LocalDate
 
 @Composable
 fun CalendarScreen(mainViewModel: MainViewModel) {
+    val calenderNotes by mainViewModel.getAllCalendarNotes.collectAsStateWithLifecycle(initialValue = emptyList())
     val chosenDate = remember { mutableStateOf<LocalDate?>(null) }
 
     Scaffold(
@@ -36,7 +39,7 @@ fun CalendarScreen(mainViewModel: MainViewModel) {
                 chosenDate.value = date
             }
 
-            // TODO move color picker
+            // TODO move color picker to AddNoteToDate dialog
             /*
 
             var chosenColor by remember { mutableStateOf(Color.LightGray) }
@@ -67,9 +70,10 @@ fun CalendarScreen(mainViewModel: MainViewModel) {
                     .weight(1f)
                     .padding(vertical = 4.dp)
             ) {
-                chosenDate.value?.let {
-                    ChosenDate(it)
-                } ?: CalendarList()
+                chosenDate.value?.let { date ->
+                    val notes = calenderNotes.find { it.date == date }?.notes ?: emptyList()
+                    ChosenDate(date, notes)
+                } ?: CalendarList(calenderNotes)
             }
         }
     }

@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -98,8 +99,8 @@ class MainViewModel @Inject constructor(
     *  ********************************** */
 
     // TODO impl update for CalendarNote list items
-    /*var calendarNote by mutableStateOf(CalendarNote(LocalDate.now(), color = Color.Magenta))
-        private set*/
+    var calendarNote: CalendarNote? by mutableStateOf(null)
+        private set
 
     val getAllCalendarNotes: Flow<List<CalendarNote>> = calendarNoteRepository.getAllCalendarNotes()
 
@@ -127,10 +128,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-   /*fun getCalendarNoteById(id: LocalDate) {
+   fun getCalendarNoteByDate(date: LocalDate) {
         viewModelScope.launch(Dispatchers.IO) {
-            // TODO error handling
-            calendarNoteRepository.getCalendarNotesByDate(id)?.let { calendarNote = it }
+            calendarNote = calendarNoteRepository.getCalendarNotesByDate(date)
         }
-    }*/
+    }
 }

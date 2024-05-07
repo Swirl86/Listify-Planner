@@ -12,6 +12,6 @@ class CalendarNoteRepository(
     suspend fun updateCalendarNote(note: CalendarNote) = cnDao.update(note)
     suspend fun deleteCalendarNote(note: CalendarNote) = cnDao.delete(note)
     suspend fun deleteAllCalendarNotes() = cnDao.deleteAll()
-    suspend fun getCalendarNotesByDate(id: LocalDate): CalendarNote? = cnDao.getCalendarNoteByDate(id)
+    suspend fun getCalendarNotesByDate(date: LocalDate): CalendarNote? = cnDao.getCalendarNoteByDate(date)
     fun getAllCalendarNotes(): Flow<List<CalendarNote>> = cnDao.getAllCalendarNotes()
 }

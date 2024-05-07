@@ -17,6 +17,8 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.swirl.listifyplanner.data.model.CalendarNote
+import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.DayCard
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.MonthHeader
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.WeekNumberHeader
@@ -29,7 +31,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun CalendarList() {
+fun CalendarList(calenderNotes: List<CalendarNote> = emptyList()) {
     //val context = LocalContext.current
     //val calendarNotes by mainViewModel.getAllCalendarNotes.collectAsStateWithLifecycle(initialValue = emptyList())
 
@@ -70,7 +72,9 @@ fun CalendarList() {
                     WeekNumberHeader(currentWeek)
                     lastWeekShown.intValue = currentWeek
                 }
-                DayCard(date)
+
+                val notes = calenderNotes.find { it.date == date }?.notes ?: emptyList()
+                DayCard(date, notes)
             }
         }
     }
