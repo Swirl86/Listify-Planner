@@ -6,7 +6,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class Note(
-    val dateId: LocalDate,
     val title: String,
     val description: String,
     val color: Color,

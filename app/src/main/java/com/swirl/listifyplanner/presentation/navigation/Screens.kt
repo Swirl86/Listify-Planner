@@ -4,5 +4,6 @@ enum class Screens {
     HomeScreen,
     UpdateScreen,
     SpeechToTextScreen,
-    CalendarScreen
+    CalendarScreen,
+    AddNoteToDateScreen
 }
