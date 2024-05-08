@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.swirl.listifyplanner.data.model.CalendarNote
+import com.swirl.listifyplanner.data.model.Note
 import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.data.repository.CalendarNoteRepository
 import com.swirl.listifyplanner.data.repository.TodoRepository
@@ -98,18 +99,28 @@ class MainViewModel @Inject constructor(
     *  CalendarNote
     *  ********************************** */
 
-    // TODO impl update for CalendarNote list items
-    var calendarNote: CalendarNote? by mutableStateOf(null)
-        private set
-
     val getAllCalendarNotes: Flow<List<CalendarNote>> = calendarNoteRepository.getAllCalendarNotes()
 
-    fun insertCalendarNote(cn: CalendarNote) {
+    fun insertCalendarNote(date: LocalDate, note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
-            calendarNoteRepository.insertCalendarNote(cn)
+            val calenderNote = calendarNoteRepository.getCalendarNotesByDate(date)
+            calenderNote?.let {
+                calendarNoteRepository.updateCalendarNote(
+                    calenderNote.copy(
+                        notes = calenderNote.notes + note
+                    )
+                )
+            } ?: calendarNoteRepository.insertCalendarNote(
+                CalendarNote(
+                    date = date,
+                    notes = listOf(note)
+                )
+            )
         }
     }
 
+    // TODO implement more functionality
+    /*
     fun updateCalendarNote(cn: CalendarNote) {
         viewModelScope.launch(Dispatchers.IO) {
             calendarNoteRepository.updateCalendarNote(cn)
@@ -130,7 +141,7 @@ class MainViewModel @Inject constructor(
 
    fun getCalendarNoteByDate(date: LocalDate) {
         viewModelScope.launch(Dispatchers.IO) {
-            calendarNote = calendarNoteRepository.getCalendarNotesByDate(date)
+            calendarNoteRepository.getCalendarNotesByDate(date)
         }
-    }
+    }*/
 }

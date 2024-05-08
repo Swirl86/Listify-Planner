@@ -8,17 +8,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swirl.listifyplanner.data.model.CalendarNote
-import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.DayCard
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.MonthHeader
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.WeekNumberHeader

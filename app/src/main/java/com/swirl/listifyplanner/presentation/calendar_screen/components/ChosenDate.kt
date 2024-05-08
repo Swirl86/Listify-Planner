@@ -4,12 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swirl.listifyplanner.data.model.Note
-import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.DayCard
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.MonthHeader
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.WeekNumberHeader
@@ -28,6 +24,9 @@ fun ChosenDate(chosenDate: LocalDate, notes: List<Note>) {
             Locale.getDefault()
         )
     } ${chosenDate.year} "
+
+    // TODO change design, show every note for date and chosen note color,
+    //  DayCard design is for list view as sa summary
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

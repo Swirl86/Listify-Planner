@@ -12,7 +12,6 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.isUnspecified
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun AutoSizingText(

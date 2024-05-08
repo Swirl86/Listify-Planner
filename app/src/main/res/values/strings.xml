@@ -25,6 +25,8 @@
 
     <!-- Calendar_screen  -->
     <string name="calendar_note">Note</string>
+    <string name="calendar_note_title">Title*</string>
+    <string name="calendar_note_description">Description…</string>
     <string name="calendar_add">Calendar Note</string>
     <string name="calendar_date">Date</string>
     <string name="calendar_top_title">Choose Date</string>
@@ -46,6 +48,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="button_dismiss">Dismiss</string>
     <string name="button_clear">Clear</string>
+    <string name="required">*Required</string>
 
     <!-- Error -->
     <string name="error_unknown">Something went wrong</string>

@@ -10,6 +10,6 @@ import java.time.LocalDate
 data class CalendarNote(
     @PrimaryKey
     val date: LocalDate,
-    val color: Color = Color.Gray,
+    val color: Color = Color.LightGray,
     val notes: List<Note> = emptyList()
 ): Serializable

@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
@@ -45,7 +44,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swirl.listifyplanner.R
-import com.swirl.listifyplanner.data.model.CalendarNote
 import com.swirl.listifyplanner.data.model.Note
 import com.swirl.listifyplanner.data.repository.CalendarNoteRepository
 import com.swirl.listifyplanner.data.repository.TodoRepository
@@ -54,11 +52,10 @@ import com.swirl.listifyplanner.db.dao.TodoDao
 import com.swirl.listifyplanner.di.DatabaseModule
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.picker.MyDatePicker
+import com.swirl.listifyplanner.presentation.common.RequiredField
 import com.swirl.listifyplanner.presentation.common.TextIconButton
 import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickedDisplay
 import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickerDialog
-import com.swirl.listifyplanner.presentation.common.colorpicker.randomColor
-import com.swirl.listifyplanner.presentation.common.toastMsg
 import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
 import com.swirl.listifyplanner.ui.theme.DeepPurple700
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
@@ -86,6 +83,8 @@ fun AddNoteToDateScreen(
 
     var noteTitle by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+
+    var isValid by remember { mutableStateOf(false) }
 
     LaunchedEffect(chosenDate) {
         date = chosenDate
@@ -180,9 +179,13 @@ fun AddNoteToDateScreen(
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
+
             TextField(
                 value = noteTitle,
-                onValueChange = { noteTitle = it },
+                onValueChange = {
+                    noteTitle = it
+                    isValid = it.isNotEmpty()
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp)
@@ -191,14 +194,16 @@ fun AddNoteToDateScreen(
                         shape = MaterialTheme.shapes.small,
                         color = Color.DarkGray
                     ),
-                placeholder = { Text("Title . . .") },
+                placeholder = { Text(UiText.StringResource(R.string.calendar_note_title).asString()) },
                 colors = getPurpleThemeTextFieldColors(),
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Sentences
                 ),
                 singleLine = true,
-                textStyle = MaterialTheme.typography.bodyMedium
+                textStyle = MaterialTheme.typography.bodyMedium,
+                isError = !isValid
             )
+            if (!isValid) { RequiredField() }
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
                 value = description,
@@ -211,7 +216,7 @@ fun AddNoteToDateScreen(
                         shape = MaterialTheme.shapes.small,
                         color = Color.DarkGray
                     ),
-                placeholder = { Text("Description . . .") },
+                placeholder = { Text(UiText.StringResource(R.string.calendar_note_description).asString()) },
                 colors = getPurpleThemeTextFieldColors(),
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Sentences
@@ -228,15 +233,15 @@ fun AddNoteToDateScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
                 onClick = {
-                    //TODO SAVE FOR REAL, fetch item / add to dates list if already exist
                     mainViewModel.insertCalendarNote(
-                        CalendarNote(
-                            date = date,
+                        date,
+                        Note(
+                            title = noteTitle,
+                            description = description,
                             color = chosenColor,
-                            listOf(Note(title = noteTitle, description = description, color = chosenColor, timeStamp = LocalDateTime.now()))
+                            timeStamp = LocalDateTime.now()
                         )
                     )
-                    // TODO add error handling, check if title is empty dont add
                     onBack()
                 }
             ) {

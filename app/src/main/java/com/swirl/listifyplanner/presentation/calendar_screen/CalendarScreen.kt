@@ -27,10 +27,8 @@ import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.CalendarList
 import com.swirl.listifyplanner.presentation.calendar_screen.components.CalendarScreenHeader
 import com.swirl.listifyplanner.presentation.calendar_screen.components.ChosenDate
-import com.swirl.listifyplanner.presentation.calendar_screen.components.date.AddNoteToDateScreen
 import com.swirl.listifyplanner.presentation.common.DraggableComponent
 import com.swirl.listifyplanner.utils.UiText
-import com.swirl.listifyplanner.utils.extenstions.convertLocalDateToMillis
 import java.time.LocalDate
 
 @Composable
