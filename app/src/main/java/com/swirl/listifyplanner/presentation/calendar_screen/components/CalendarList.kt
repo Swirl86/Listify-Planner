@@ -27,9 +27,10 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun CalendarList(calenderNotes: List<CalendarNote> = emptyList()) {
-    //val context = LocalContext.current
-    //val calendarNotes by mainViewModel.getAllCalendarNotes.collectAsStateWithLifecycle(initialValue = emptyList())
+fun CalendarList(
+    calenderNotes: List<CalendarNote> = emptyList(),
+    onDateClick: (date: LocalDate) -> Unit
+) {
 
     val scope = rememberCoroutineScope()
     val lazyListState = rememberLazyListState()
@@ -70,7 +71,9 @@ fun CalendarList(calenderNotes: List<CalendarNote> = emptyList()) {
                 }
 
                 val notes = calenderNotes.find { it.date == date }?.notes ?: emptyList()
-                DayCard(date, notes)
+                DayCard(date, notes) {
+                    onDateClick(date)
+                }
             }
         }
     }

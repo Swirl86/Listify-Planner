@@ -39,7 +39,6 @@ fun CalendarScreen(
     val calenderNotes by mainViewModel.getAllCalendarNotes.collectAsStateWithLifecycle(initialValue = emptyList())
     val chosenDate = remember { mutableStateOf<LocalDate?>(null) }
 
-    // TODO make every datecard clickable to see notes for date or add new to selected date
     // ExtendedFloatingActionButton
     val listState = rememberLazyListState()
     val isExpanded by remember { derivedStateOf { listState.firstVisibleItemIndex == 0 } }
@@ -81,7 +80,9 @@ fun CalendarScreen(
                 chosenDate.value?.let { date ->
                     val notes = calenderNotes.find { it.date == date }?.notes ?: emptyList()
                     ChosenDate(date, notes)
-                } ?: CalendarList(calenderNotes)
+                } ?: CalendarList(calenderNotes, onDateClick = {
+                    chosenDate.value = it
+                })
             }
         }
     }

@@ -67,5 +67,6 @@
     <string name="icon_arrow_up">Navigate Up Icon</string>
 
     <string name="img_dice">Dice Image</string>
+    <string name="img_pin">Pin Image</string>
 
 </resources>
