@@ -115,4 +115,7 @@ dependencies {
     //GSON
     implementation(libs.gson)
     implementation(libs.converter.gson)
+
+    //SplashScreen
+    implementation(libs.androidx.core.splashscreen)
 }
