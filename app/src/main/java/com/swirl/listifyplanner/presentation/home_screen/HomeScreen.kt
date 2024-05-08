@@ -34,11 +34,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
-import com.swirl.listifyplanner.presentation.common.snackbar
 import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialogAddScreen
 import com.swirl.listifyplanner.presentation.common.DraggableComponent
+import com.swirl.listifyplanner.presentation.common.EmptyScreen
 import com.swirl.listifyplanner.presentation.common.SwipeToDeleteContainer
-import com.swirl.listifyplanner.presentation.home_screen.components.EmptyToDoScreen
+import com.swirl.listifyplanner.presentation.common.snackbar
 import com.swirl.listifyplanner.presentation.home_screen.components.MyTopAppBar
 import com.swirl.listifyplanner.presentation.home_screen.components.TodoCard
 import com.swirl.listifyplanner.utils.UiText
@@ -67,8 +67,11 @@ fun HomeScreen(
         floatingActionButton = {
             DraggableComponent {
                 ExtendedFloatingActionButton(
-                    text = { Text(text = UiText.StringResource(R.string.add_todo).asString(context)) },
-                    icon = { Icon(imageVector = Icons.Rounded.Add, contentDescription = null) },
+                    text = { Text(text = UiText.StringResource(R.string.add_todo).asString()) },
+                    icon = { Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = UiText.StringResource(R.string.icon_add).asString()
+                    ) },
                     expanded = isExpanded,
                     onClick = { openDialog = true }
                 )
@@ -81,7 +84,10 @@ fun HomeScreen(
             mainViewModel = mainViewModel
         )
         if (todos.isEmpty()) {
-            EmptyToDoScreen(paddingValues = paddingValues)
+            EmptyScreen(
+                text = UiText.StringResource(R.string.empty_home_screen_title).asString(),
+                paddingValues = paddingValues
+            )
         } else {
             AnimatedVisibility(
                 visible = true,

@@ -26,7 +26,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
@@ -44,7 +43,6 @@ fun UpdateScreen(
     mainViewModel: MainViewModel,
     onBack: () -> Unit
 ) {
-    val context = LocalContext.current
     val task = mainViewModel.todo.task
     val isImportant = mainViewModel.todo.isImportant
 
@@ -59,7 +57,7 @@ fun UpdateScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = UiText.StringResource(R.string.update_todo).asString(context),
+                        text = UiText.StringResource(R.string.update_todo).asString(),
                         style = topAppBarTextStyle
                     )
                 },
@@ -67,7 +65,7 @@ fun UpdateScreen(
                     IconButton(onClick = { onBack() }) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBackIosNew,
-                            contentDescription = null
+                            contentDescription = UiText.StringResource(R.string.icon_arrow_back).asString()
                         )
                     }
                 })
@@ -82,7 +80,7 @@ fun UpdateScreen(
             Spacer(modifier = Modifier.size(16.dp))
             Icon(
                 imageVector = Icons.Rounded.Edit,
-                contentDescription = null,
+                contentDescription = UiText.StringResource(R.string.icon_edit).asString(),
                 modifier = Modifier
                     .size(100.dp)
             )
@@ -95,7 +93,7 @@ fun UpdateScreen(
                 modifier = Modifier.fillMaxWidth(),
                 label = {
                     Text(
-                        text = UiText.StringResource(R.string.update_todo_task).asString(context),
+                        text = UiText.StringResource(R.string.update_todo_task).asString(),
                         fontFamily = FontFamily.Monospace
                     )
                 },
@@ -112,7 +110,7 @@ fun UpdateScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = UiText.StringResource(R.string.todo_important).asString(context),
+                    text = UiText.StringResource(R.string.todo_important).asString(),
                     fontFamily = FontFamily.Monospace,
                     fontSize = 18.sp
                 )
@@ -127,7 +125,7 @@ fun UpdateScreen(
                 onBack()
             }) {
                 Text(
-                    text = UiText.StringResource(R.string.update_todo_save).asString(context),
+                    text = UiText.StringResource(R.string.update_todo_save).asString(),
                     fontSize = 16.sp
                 )
             }

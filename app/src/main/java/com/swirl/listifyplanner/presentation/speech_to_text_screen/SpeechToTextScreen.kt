@@ -6,7 +6,17 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
@@ -70,7 +80,7 @@ fun SpeechToTextScreen(mainViewModel: MainViewModel) {
     }
 
     Scaffold(
-        topBar = { TitleTopAppBar(title = UiText.StringResource(R.string.speech_top_title).asString(context)) },
+        topBar = { TitleTopAppBar(title = UiText.StringResource(R.string.speech_top_title).asString()) },
         floatingActionButton = {
             if (state.spokenText.isNotEmpty()) {
                 DraggableComponent {
@@ -78,7 +88,10 @@ fun SpeechToTextScreen(mainViewModel: MainViewModel) {
                         shape = RoundedCornerShape(percent = 100),
                         onClick = { openDialog = true }
                     ) {
-                        Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.Rounded.Add,
+                            contentDescription = UiText.StringResource(R.string.icon_add).asString()
+                        )
                     }
                 }
             }
@@ -126,7 +139,7 @@ fun SpeechToTextScreen(mainViewModel: MainViewModel) {
                 ) {
                     Icon(
                         imageVector = if (state.isSpeaking) Icons.Default.MicOff else Icons.Default.Mic,
-                        contentDescription = null,
+                        contentDescription = UiText.StringResource(R.string.icon_mic).asString(),
                         modifier = Modifier
                             .weight(4f)
                             .fillMaxSize()
@@ -137,9 +150,9 @@ fun SpeechToTextScreen(mainViewModel: MainViewModel) {
                         modifier = Modifier.weight(1f),
                         fontSize = 10.sp,
                         text = if (state.isSpeaking) {
-                            UiText.StringResource(R.string.speech_stop).asString(context)
+                            UiText.StringResource(R.string.speech_stop).asString()
                         } else {
-                            UiText.StringResource(R.string.speech_start).asString(context)
+                            UiText.StringResource(R.string.speech_start).asString()
                         },
                         color = Color.LightGray
                     )

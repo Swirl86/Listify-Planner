@@ -20,11 +20,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.CalendarScreen
+import com.swirl.listifyplanner.presentation.calendar_screen.components.date.AddNoteToDateScreen
 import com.swirl.listifyplanner.presentation.home_screen.HomeScreen
-import com.swirl.listifyplanner.presentation.update_screen.UpdateScreen
 import com.swirl.listifyplanner.presentation.speech_to_text_screen.SpeechToTextScreen
+import com.swirl.listifyplanner.presentation.update_screen.UpdateScreen
+import com.swirl.listifyplanner.utils.UiText
+import com.swirl.listifyplanner.utils.extenstions.convertLocalDateToMillis
+import com.swirl.listifyplanner.utils.extenstions.convertMillisToLocalDate
+import java.time.LocalDate
 
 @Composable
 fun AppNavigation(mainViewModel: MainViewModel) {
@@ -48,7 +54,10 @@ fun AppNavigation(mainViewModel: MainViewModel) {
                             }
                         },
                         icon = {
-                            Icon(imageVector = navItem.icon, contentDescription = null)
+                            Icon(
+                                imageVector = navItem.icon,
+                                contentDescription = UiText.StringResource(R.string.icon_arrow_back).asString()
+                            )
                         },
                         label = {
                             Text(text = navItem.label)
@@ -57,11 +66,11 @@ fun AppNavigation(mainViewModel: MainViewModel) {
                 }
             }
         }
-    ) {
+    ) { paddingValues ->
         NavHost(
             navController = navController,
             startDestination = Screens.HomeScreen.name,
-            modifier = Modifier.padding(it)
+            modifier = Modifier.padding(paddingValues)
         ) {
             composable(
                 route = Screens.HomeScreen.name
@@ -106,7 +115,42 @@ fun AppNavigation(mainViewModel: MainViewModel) {
                 SpeechToTextScreen(mainViewModel)
             }
             composable(route = Screens.CalendarScreen.name) {
-                CalendarScreen()
+                CalendarScreen(
+                    mainViewModel = mainViewModel,
+                    onAddNote = { date ->
+                        navController.navigate(
+                            route = "${Screens.AddNoteToDateScreen.name}/${date.convertLocalDateToMillis()}"
+                        )
+                    }
+                )
+            }
+            composable(
+                route = "${Screens.AddNoteToDateScreen.name}/{date}",
+                arguments = listOf(navArgument("date") {
+                    type = NavType.LongType
+                    defaultValue = LocalDate.now().convertLocalDateToMillis()
+                    nullable = false
+                }),
+                enterTransition = {
+                    slideInHorizontally (
+                        initialOffsetX = {-it},
+                        animationSpec = tween(300)
+                    )
+                },
+                exitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = {-it},
+                        animationSpec = tween(300)
+                    )
+                }
+                ) { navBackStackEntry ->
+                navBackStackEntry.arguments?.getLong("date")?.let { date ->
+                    AddNoteToDateScreen(
+                        mainViewModel = mainViewModel,
+                        onBack = {navController.popBackStack()},
+                        chosenDate = date.convertMillisToLocalDate()
+                    )
+                }
             }
         }
     }

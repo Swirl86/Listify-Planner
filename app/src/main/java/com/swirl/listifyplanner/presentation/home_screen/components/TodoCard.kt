@@ -29,11 +29,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.presentation.common.taskTextStyle
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.ui.theme.TaskLightYellowBg
-import com.swirl.listifyplanner.utils.extenstions.getOutPutString
+import com.swirl.listifyplanner.utils.UiText
+import com.swirl.listifyplanner.utils.extenstions.dateTimeToString
 import java.time.LocalDateTime
 
 @Composable
@@ -71,7 +73,7 @@ fun TodoCard(
                     modifier = Modifier.weight(1f),
                     imageVector = Icons.Rounded.Check,
                     tint = if (todo.isDone) Color.Green else Color.Gray,
-                    contentDescription = null
+                    contentDescription = UiText.StringResource( R.string.icon_check).asString()
                 )
                 Spacer(modifier = Modifier.padding(end = 6.dp))
                 Text(
@@ -85,7 +87,7 @@ fun TodoCard(
                     Icon(
                         imageVector = Icons.Rounded.Star,
                         tint = Color.Cyan,
-                        contentDescription = null,
+                        contentDescription = UiText.StringResource( R.string.icon_star).asString(),
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 4.dp)
@@ -100,7 +102,7 @@ fun TodoCard(
                     Icon(
                         imageVector = Icons.Rounded.Delete,
                         tint = Color.Red,
-                        contentDescription = null
+                        contentDescription = UiText.StringResource( R.string.icon_delete).asString()
                     )
                 }
                 IconButton(
@@ -111,7 +113,7 @@ fun TodoCard(
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Edit,
-                        contentDescription = null
+                        contentDescription = UiText.StringResource( R.string.icon_edit).asString()
                     )
                 }
             }
@@ -126,7 +128,7 @@ fun TodoCard(
                         .weight(1f)
                         .fillMaxWidth())
                 Text(
-                    text = todo.timeStamp.getOutPutString(),
+                    text = todo.timeStamp.dateTimeToString(),
                     modifier = Modifier.padding(4.dp),
                     fontSize = 10.sp
                 )

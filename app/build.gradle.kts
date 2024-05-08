@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
     id("dagger.hilt.android.plugin")
-    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -57,6 +57,7 @@ android {
     }
 
     ksp {
+        arg("room.generateKotlin", "true")
         arg("room.schemaLocation", "$projectDir/schemas")
     }
 }
@@ -72,6 +73,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -90,6 +92,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
@@ -97,16 +100,14 @@ dependencies {
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
-    kapt(libs.androidx.hilt.compiler)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.androidx.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
 
     //Room
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
-
-    // Kotlin extensions and Room coroutine support
-    implementation(libs.androidx.room.ktx)
 
     //Retrofit
     implementation(libs.retrofit)

@@ -12,3 +12,6 @@ val Pink40 = Color(0xFF7D5260)
 
 val TaskLightGreenBg = Color(0xFFCCFFCC)
 val TaskLightYellowBg = Color(0xFFffffcc)
+
+val Purple700 = Color(0xFF7B1FA2)
+val DeepPurple700 = Color(0xFF512DA8)

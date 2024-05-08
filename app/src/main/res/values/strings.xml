@@ -23,12 +23,49 @@
     <string name="speech_stop">Stop Recording</string>
     <string name="speech_permission_prompt">This app requires the access to Microphone to record your voice.</string>
 
+    <!-- Calendar_screen  -->
+    <string name="calendar_note">Note</string>
+    <string name="calendar_note_title">Title*</string>
+    <string name="calendar_note_description">Description…</string>
+    <string name="calendar_add">Calendar Note</string>
+    <string name="calendar_date">Date</string>
+    <string name="calendar_top_title">Choose Date</string>
+    <string name="calendar_choose_color">Select Color</string>
+    <string name="calendar_add_note_title">Add note to date</string>
+    <string name="calendar_add_note_sub_title">Note information</string>
+    <string name="calendar_add_not_empty">Empty Note!</string>
+    <string name="calendar_note_save">Save Note</string>
+
+    <!-- Empty_screen  -->
+    <string name="empty_calendar_title">No Calendar Notes!</string>
+    <string name="empty_home_screen_title">No Todos!</string>
 
     <!-- General -->
+    <string name="button_ok">OK</string>
     <string name="button_save">Save</string>
+    <string name="button_confirm">Confirm</string>
     <string name="button_close">Close</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_dismiss">Dismiss</string>
+    <string name="button_clear">Clear</string>
+    <string name="required">*Required</string>
 
     <!-- Error -->
     <string name="error_unknown">Something went wrong</string>
+
+    <!-- Content Description -->
+    <string name="icon_general_alert_dialog">General alert dialog Icon</string>
+    <string name="icon_calendar">Calendar Icon</string>
+    <string name="icon_color_lens">Color Lens Icon</string>
+    <string name="icon_mic">Microphone Icon</string>
+    <string name="icon_delete">Delete Icon</string>
+    <string name="icon_add">Add Icon</string>
+    <string name="icon_edit">Edit Icon</string>
+    <string name="icon_check">Check Icon</string>
+    <string name="icon_star">Star Icon</string>
+    <string name="icon_arrow_back">Navigate Back Icon</string>
+    <string name="icon_arrow_up">Navigate Up Icon</string>
+
+    <string name="img_dice">Dice Image</string>
 
 </resources>

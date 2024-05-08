@@ -3,7 +3,6 @@ package com.swirl.listifyplanner.utils
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.swirl.listifyplanner.R
 

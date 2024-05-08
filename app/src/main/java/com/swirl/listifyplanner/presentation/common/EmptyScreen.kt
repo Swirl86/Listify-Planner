@@ -1,4 +1,4 @@
-package com.swirl.listifyplanner.presentation.home_screen.components
+package com.swirl.listifyplanner.presentation.common
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun EmptyToDoScreen(paddingValues: PaddingValues) {
+fun EmptyScreen(text: String, paddingValues: PaddingValues) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -33,7 +33,7 @@ fun EmptyToDoScreen(paddingValues: PaddingValues) {
             exit = scaleOut() + fadeOut()
         ) {
             Text(
-                text = "No Todos!",
+                text = text,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 28.sp
@@ -44,6 +44,6 @@ fun EmptyToDoScreen(paddingValues: PaddingValues) {
 
 @Preview(showBackground = true)
 @Composable
-fun EmptyToDoScreenPreview() {
-    EmptyToDoScreen(PaddingValues(8.dp))
+fun EmptyScreenPreview() {
+    EmptyScreen("No Test Notes!", PaddingValues(8.dp))
 }

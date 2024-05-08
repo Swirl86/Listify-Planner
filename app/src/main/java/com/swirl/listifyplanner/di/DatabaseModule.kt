@@ -22,4 +22,9 @@ object DatabaseModule {
             AppDatabase::class.java,
             "local_db"
         ).build()
+
+    /* TODO remove, Used For preview */
+    fun getDatabaseInstance(context: Context): AppDatabase {
+        return provideLocalDataBase(context)
+    }
 }
