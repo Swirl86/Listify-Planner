@@ -35,6 +35,7 @@
     <string name="calendar_add_note_sub_title">Note information</string>
     <string name="calendar_add_not_empty">Empty Note!</string>
     <string name="calendar_note_save">Save Note</string>
+    <string name="calendar_note_empty_list">No Notes Added For This Date!</string>
 
     <!-- Empty_screen  -->
     <string name="empty_calendar_title">No Calendar Notes!</string>

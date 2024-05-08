@@ -15,13 +15,18 @@ fun StickyNoteList(
     notes: List<Note>,
     onNoteClicked: (Note) -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(8.dp)) {
         notes.forEach { note ->
             StickyNote(
                 note = note,
                 onNoteClicked = { onNoteClicked(note) }
             )
             Spacer(modifier = Modifier.height(8.dp))
+        }
+        if (notes.isEmpty()) {
+           EmptyStickyNote()
         }
     }
 }
