@@ -28,12 +28,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.ui.constants.taskTextStyle
 import com.swirl.listifyplanner.ui.constants.topAppBarTextStyle
+import com.swirl.listifyplanner.ui.preview.ProvideMainViewModelForPreview
 import com.swirl.listifyplanner.utils.UiText
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -130,5 +133,18 @@ fun UpdateTodoScreen(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun UpdateTodoScreenPreview() {
+    ProvideMainViewModelForPreview {
+        val mainViewModel: MainViewModel = viewModel()
+        UpdateTodoScreen(
+            0,
+            mainViewModel,
+            onBack = { /*TODO*/ }
+        )
     }
 }
