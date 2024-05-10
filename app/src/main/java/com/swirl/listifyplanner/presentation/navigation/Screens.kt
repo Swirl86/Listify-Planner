@@ -2,7 +2,8 @@ package com.swirl.listifyplanner.presentation.navigation
 
 enum class Screens {
     HomeScreen,
-    UpdateScreen,
+    TodoScreen,
+    UpdateTodoScreen,
     SpeechToTextScreen,
     CalendarScreen,
     AddNoteToDateScreen

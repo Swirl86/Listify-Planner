@@ -1,4 +1,4 @@
-package com.swirl.listifyplanner.presentation.update_screen
+package com.swirl.listifyplanner.presentation.todo_screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,7 +38,7 @@ import com.swirl.listifyplanner.utils.UiText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UpdateScreen(
+fun UpdateTodoScreen(
     id: Int,
     mainViewModel: MainViewModel,
     onBack: () -> Unit

@@ -2,10 +2,11 @@
     <string name="app_name">Listify Planner</string>
 
     <!-- Home_Screen -->
-    <string name="home_deleted_task">Deleted task: %s</string>
-    <string name="home_undo_delete">UNDO DELETE</string>
+    <string name="home_welcome_text">Welcome to Listify Planner</string>
 
     <!-- Todo_screen  -->
+    <string name="todo_deleted_task">Deleted task: %s</string>
+    <string name="todo_undo_delete">UNDO DELETE</string>
     <string name="add_todo">Todo</string>
     <string name="add_todo_title">Add Todo</string>
     <string name="add_todo_sub_title">Todo information</string>
@@ -69,5 +70,6 @@
 
     <string name="img_dice">Dice Image</string>
     <string name="img_pin">Pin Image</string>
+    <string name="img_app_icon">App Icon Image</string>
 
 </resources>

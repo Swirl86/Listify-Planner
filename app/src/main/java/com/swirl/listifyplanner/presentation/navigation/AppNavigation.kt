@@ -26,7 +26,8 @@ import com.swirl.listifyplanner.presentation.calendar_screen.CalendarScreen
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.AddNoteToDateScreen
 import com.swirl.listifyplanner.presentation.home_screen.HomeScreen
 import com.swirl.listifyplanner.presentation.speech_to_text_screen.SpeechToTextScreen
-import com.swirl.listifyplanner.presentation.update_screen.UpdateScreen
+import com.swirl.listifyplanner.presentation.todo_screen.TodoScreen
+import com.swirl.listifyplanner.presentation.todo_screen.UpdateTodoScreen
 import com.swirl.listifyplanner.utils.UiText
 import com.swirl.listifyplanner.utils.extenstions.convertLocalDateToMillis
 import com.swirl.listifyplanner.utils.extenstions.convertMillisToLocalDate
@@ -75,16 +76,21 @@ fun AppNavigation(mainViewModel: MainViewModel) {
             composable(
                 route = Screens.HomeScreen.name
             ) {
-                HomeScreen(
+                HomeScreen()
+            }
+            composable(
+                route = Screens.TodoScreen.name
+            ) {
+                TodoScreen(
                     mainViewModel = mainViewModel,
                     onUpdate = { id ->
                         navController.navigate(
-                            route = "${Screens.UpdateScreen.name}/$id"
+                            route = "${Screens.UpdateTodoScreen.name}/$id"
                         )
                     })
             }
             composable(
-                route = "${Screens.UpdateScreen.name}/{id}",
+                route = "${Screens.UpdateTodoScreen.name}/{id}",
                 arguments = listOf(navArgument("id") {
                     type = NavType.IntType
                     defaultValue = -1
@@ -104,13 +110,14 @@ fun AppNavigation(mainViewModel: MainViewModel) {
                 }
             ) { navBackStackEntry ->
                 navBackStackEntry.arguments?.getInt("id")?.let { id ->
-                    UpdateScreen(
+                    UpdateTodoScreen(
                         id = id,
                         mainViewModel = mainViewModel,
                         onBack = {navController.popBackStack()}
                     )
                 }
             }
+
             composable(route = Screens.SpeechToTextScreen.name) {
                 SpeechToTextScreen(mainViewModel)
             }

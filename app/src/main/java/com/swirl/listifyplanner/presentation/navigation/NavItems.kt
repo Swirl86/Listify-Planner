@@ -2,6 +2,7 @@ package com.swirl.listifyplanner.presentation.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -17,6 +18,11 @@ val listOfBottomNavItems = listOf(
         label = "Home",
         icon = Icons.Default.Home,
         route = Screens.HomeScreen.name
+    ),
+    NavItem(
+        label = "Todo",
+        icon = Icons.Default.EditNote,
+        route = Screens.TodoScreen.name
     ),
     NavItem(
         label = "Talk",

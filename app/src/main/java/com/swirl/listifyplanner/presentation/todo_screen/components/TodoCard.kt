@@ -1,4 +1,4 @@
-package com.swirl.listifyplanner.presentation.home_screen.components
+package com.swirl.listifyplanner.presentation.todo_screen.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
