@@ -23,8 +23,7 @@ object DatabaseModule {
             "local_db"
         ).build()
 
-    /* TODO remove, Used For preview */
-   /* fun getDatabaseInstance(context: Context): AppDatabase {
+    fun getDatabaseInstance(context: Context): AppDatabase {
         return provideLocalDataBase(context)
-    }*/
+    }
 }

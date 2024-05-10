@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.swirl.listifyplanner.data.repository.CalendarNoteRepository
 import com.swirl.listifyplanner.data.repository.TodoRepository
-import com.swirl.listifyplanner.db.AppDatabase
 import com.swirl.listifyplanner.db.dao.CalendarNoteDao
 import com.swirl.listifyplanner.db.dao.TodoDao
+import com.swirl.listifyplanner.di.DatabaseModule
 import com.swirl.listifyplanner.presentation.MainViewModel
 
 class MainViewModelFactory(
@@ -29,7 +29,7 @@ fun ProvideMainViewModelForPreview(
     content: @Composable () -> Unit
 ) {
     val context = LocalContext.current
-    val database =  AppDatabase.getInstance(context)
+    val database = DatabaseModule.getDatabaseInstance(context)
     val todoDao: TodoDao = database.todoDao()
     val calendarNoteDao: CalendarNoteDao = database.calendarNoteDao()
 
