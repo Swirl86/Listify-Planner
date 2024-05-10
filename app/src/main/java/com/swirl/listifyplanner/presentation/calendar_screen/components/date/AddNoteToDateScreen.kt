@@ -43,20 +43,18 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.data.model.Note
-import com.swirl.listifyplanner.data.repository.CalendarNoteRepository
-import com.swirl.listifyplanner.data.repository.TodoRepository
-import com.swirl.listifyplanner.db.dao.CalendarNoteDao
-import com.swirl.listifyplanner.db.dao.TodoDao
-import com.swirl.listifyplanner.di.DatabaseModule
 import com.swirl.listifyplanner.presentation.MainViewModel
 import com.swirl.listifyplanner.presentation.calendar_screen.components.date.picker.MyDatePicker
 import com.swirl.listifyplanner.presentation.common.RequiredField
 import com.swirl.listifyplanner.presentation.common.TextIconButton
 import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickedDisplay
 import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickerDialog
-import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
+import com.swirl.listifyplanner.ui.constants.DefaultIconSize
+import com.swirl.listifyplanner.ui.constants.topAppBarTextStyle
+import com.swirl.listifyplanner.ui.preview.ProvideMainViewModelForPreview
 import com.swirl.listifyplanner.ui.theme.DeepPurple700
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.utils.UiText
@@ -139,7 +137,7 @@ fun AddNoteToDateScreen(
                     tint = DeepPurple700,
                     contentDescription = UiText.StringResource(R.string.icon_calendar).toString(),
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(DefaultIconSize)
                         .clickable { showDialog.value = true }
                 )
             }
@@ -260,22 +258,12 @@ fun AddNoteToDateScreen(
 @Preview(showBackground = true)
 @Composable
 fun AddNoteToDateScreenPreview() {
-    val context = LocalContext.current
-    val database =  DatabaseModule.getDatabaseInstance(context)
-    val todoDao: TodoDao = database.todoDao()
-    val calendarNoteDao: CalendarNoteDao = database.calendarNoteDao()
-
-    val todoRepository = TodoRepository(todoDao)
-    val calendarNoteRepository = CalendarNoteRepository(calendarNoteDao)
-
-    val mainViewModel = MainViewModel(
-        todoRepository = todoRepository,
-        calendarNoteRepository = calendarNoteRepository
-    )
-
-    AddNoteToDateScreen(
-        mainViewModel = mainViewModel,
-        onBack = {},
-        chosenDate = LocalDate.now()
-    )
+    ProvideMainViewModelForPreview {
+        val mainViewModel: MainViewModel = viewModel()
+        AddNoteToDateScreen(
+            mainViewModel = mainViewModel,
+            onBack = {},
+            chosenDate = LocalDate.now()
+        )
+    }
 }

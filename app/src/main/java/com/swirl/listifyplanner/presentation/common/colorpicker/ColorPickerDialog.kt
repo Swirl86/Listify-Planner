@@ -36,6 +36,7 @@ import androidx.compose.ui.window.Dialog
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.common.CloseX
 import com.swirl.listifyplanner.presentation.common.TextIconButton
+import com.swirl.listifyplanner.ui.constants.DefaultIconSize
 import com.swirl.listifyplanner.utils.UiText
 
 @Composable
@@ -96,8 +97,7 @@ fun ColorPickerDialog(
                                 contentDescription = UiText.StringResource(R.string.img_dice)
                                     .asString(),
                                 modifier = Modifier
-                                    .size(36.dp)
-                                    //.clickable { randomColor(red, green, blue, alpha) }
+                                    .size(DefaultIconSize)
                                     .background(Color.LightGray, shape = CircleShape)
                             )
                         }

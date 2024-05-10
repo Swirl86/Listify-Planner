@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.presentation.MainViewModel
-import com.swirl.listifyplanner.presentation.common.taskTextStyle
+import com.swirl.listifyplanner.ui.constants.taskTextStyle
 import com.swirl.listifyplanner.presentation.common.toastMsg
 import com.swirl.listifyplanner.utils.UiText
 import kotlinx.coroutines.job

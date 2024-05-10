@@ -1,13 +1,13 @@
 package com.swirl.listifyplanner.presentation.todo_screen.components
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DeleteForever
 import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -20,7 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.alert_dialogs.AlertDialogGeneral
-import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
+import com.swirl.listifyplanner.ui.constants.DefaultIconSize
+import com.swirl.listifyplanner.ui.constants.topAppBarTextStyle
 import com.swirl.listifyplanner.utils.UiText
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,8 +40,8 @@ fun MyTopAppBar(
                 openDeleteAllDialog = false
                 onDeleteAll()
             },
-            dialogTitle = "Delete all todos",
-            dialogText = "Are you sure you want to delete all your todos? They can not be restored once deleted!",
+            dialogTitle = UiText.StringResource(R.string.todo_delete_all_title).asString(),
+            dialogText = UiText.StringResource(R.string.todo_delete_all_subtitle).asString(),
             icon = Icons.Rounded.Warning,
             modifier = Modifier.size(62.dp),
             tintColor = Color.Red
@@ -50,15 +51,14 @@ fun MyTopAppBar(
         title = { Text(text = "Todos", style = topAppBarTextStyle) },
         actions = {
             if (size > 0) {
-                IconButton(
-                    onClick = { openDeleteAllDialog = true }
-                ) {
-                    Icon(
-                        Icons.Rounded.DeleteForever,
-                        tint = Color.Red,
-                        contentDescription = UiText.StringResource(R.string.icon_delete).asString()
-                    )
-                }
+                Icon(
+                    modifier = Modifier
+                        .size(DefaultIconSize)
+                        .clickable { openDeleteAllDialog = true },
+                    imageVector = Icons.Rounded.DeleteForever,
+                    tint = Color.Red,
+                    contentDescription = UiText.StringResource(R.string.icon_delete).asString()
+                )
             }
         }
     )
