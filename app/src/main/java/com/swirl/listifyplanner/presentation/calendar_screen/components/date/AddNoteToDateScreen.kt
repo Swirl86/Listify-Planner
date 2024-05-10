@@ -56,7 +56,8 @@ import com.swirl.listifyplanner.presentation.common.RequiredField
 import com.swirl.listifyplanner.presentation.common.TextIconButton
 import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickedDisplay
 import com.swirl.listifyplanner.presentation.common.colorpicker.ColorPickerDialog
-import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
+import com.swirl.listifyplanner.ui.constants.DefaultIconSize
+import com.swirl.listifyplanner.ui.constants.topAppBarTextStyle
 import com.swirl.listifyplanner.ui.theme.DeepPurple700
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.utils.UiText
@@ -139,7 +140,7 @@ fun AddNoteToDateScreen(
                     tint = DeepPurple700,
                     contentDescription = UiText.StringResource(R.string.icon_calendar).toString(),
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(DefaultIconSize)
                         .clickable { showDialog.value = true }
                 )
             }

@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.presentation.MainViewModel
-import com.swirl.listifyplanner.presentation.common.taskTextStyle
-import com.swirl.listifyplanner.presentation.common.topAppBarTextStyle
+import com.swirl.listifyplanner.ui.constants.taskTextStyle
+import com.swirl.listifyplanner.ui.constants.topAppBarTextStyle
 import com.swirl.listifyplanner.utils.UiText
 
 @OptIn(ExperimentalMaterial3Api::class)
