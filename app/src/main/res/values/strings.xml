@@ -5,6 +5,10 @@
     <string name="home_welcome_text">Welcome to Listify Planner</string>
 
     <!-- Todo_screen  -->
+    <string name="todo_delete_title">Delete Todo</string>
+    <string name="todo_delete_all_title">Delete All Todos</string>
+    <string name="todo_delete_subtitle">Are you sure you want to delete your todo? It can not be restored once deleted!</string>
+    <string name="todo_delete_all_subtitle">Are you sure you want to delete all your todos? They can not be restored once deleted!</string>
     <string name="todo_deleted_task">Deleted task: %s</string>
     <string name="todo_undo_delete">UNDO DELETE</string>
     <string name="add_todo">Todo</string>
@@ -16,7 +20,7 @@
     <string name="update_todo_task">Task</string>
     <string name="update_todo_save">Save Task</string>
 
-    <string name="todo_important">Important</string>
+    <string name="todo_important">Is Important?</string>
 
     <!-- Speech_To_Text_screen  -->
     <string name="speech_top_title">Talk to me</string>

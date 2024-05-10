@@ -27,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +35,7 @@ import androidx.compose.ui.unit.sp
 import com.swirl.listifyplanner.R
 import com.swirl.listifyplanner.data.model.Todo
 import com.swirl.listifyplanner.ui.constants.DefaultIconSize
-import com.swirl.listifyplanner.ui.constants.SmallPadding
+import com.swirl.listifyplanner.ui.constants.SmallDp
 import com.swirl.listifyplanner.ui.constants.taskTextStyle
 import com.swirl.listifyplanner.ui.theme.TaskLightGreenBg
 import com.swirl.listifyplanner.ui.theme.TaskLightYellowBg
@@ -86,7 +85,7 @@ fun TodoCard(
                     tint = getIconColor(todo.isDone, Color.Black),
                     contentDescription = UiText.StringResource( R.string.icon_check).asString()
                 )
-                Spacer(modifier = Modifier.padding(end = SmallPadding))
+                Spacer(modifier = Modifier.padding(end = SmallDp))
                 Text(
                     text = AnnotatedString(todo.task),
                     maxLines = 2,

@@ -1,6 +1,8 @@
 package com.swirl.listifyplanner.utils
 
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -12,6 +14,16 @@ fun getPurpleThemeTextFieldColors() = TextFieldDefaults.textFieldColors(
     focusedIndicatorColor = Color.Magenta,
     unfocusedIndicatorColor = Color.Gray,
     cursorColor = Color.Magenta
+)
+
+@Composable
+fun getSwitchDefaultColors() = SwitchDefaults.colors(
+    checkedThumbColor = Color.Green,
+    checkedIconColor = Color.DarkGray,
+    uncheckedThumbColor = Color.Red,
+    uncheckedIconColor = Color.LightGray,
+    disabledCheckedThumbColor = Color.Green.copy(alpha = ContentAlpha.disabled),
+    disabledUncheckedThumbColor = Color.Red.copy(alpha = ContentAlpha.disabled),
 )
 
 /**
