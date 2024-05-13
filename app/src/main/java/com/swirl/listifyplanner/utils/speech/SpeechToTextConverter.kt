@@ -16,8 +16,6 @@ class SpeechToTextConverter(context: Context) : AudioTranscription {
     val state = _state.asStateFlow()
 
     private val speechRecognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
-    private val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
 
     private val recognitionListener = object : RecognitionListener {
         override fun onReadyForSpeech(params: Bundle?) {
@@ -37,7 +35,7 @@ class SpeechToTextConverter(context: Context) : AudioTranscription {
             if (error == SpeechRecognizer.ERROR_CLIENT) return
 
             _state.update {
-                it.copy(error = "Error : $error")
+                it.copy(error = error)
             }
         }
         override fun onResults(results: Bundle?) {
@@ -63,7 +61,12 @@ class SpeechToTextConverter(context: Context) : AudioTranscription {
         speechRecognizer.setRecognitionListener(listener)
     }
 
-    override fun startListening() {
+    override fun startListening(languageCode: String) {
+        val recognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            .putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageCode)
+            .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 3000L)
+
         speechRecognizer.startListening(recognizerIntent)
         _state.update {
             it.copy(
