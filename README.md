@@ -12,15 +12,14 @@ Todo-list/calendar note project to learn more about using jetpack compose, room,
 ### Calendar functionality
   -  Add note to chosen date
   -  Display dates in list from today's date and forward
-  -  Datepicker, display chosen date
-  -  Color picker (will be used for calendar note design)
+  -  Datepicker chose a date
+      - Display chosen date and related notes if any exist
+  -  Color picker (used for calendar note design)
 
 ## Planned
--  Create new homepage and move todo-list screen
 -  More functionality for calendar notes
   - Add, edit and delete option for all and individual
   - New design for chosen date and use color picked
-  - Make dates clickable in list
 - Implement Lottie for something fun :)
 - Download list functionality
 - Design update -- make it look good
